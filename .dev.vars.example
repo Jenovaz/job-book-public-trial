@@ -1,0 +1,3 @@
+# Local test values only. Copy to .dev.vars; never use these in a deployment.
+PASSPHRASE="local test passphrase"
+SESSION_SECRET="local-only-example-signing-secret-never-deploy-this"

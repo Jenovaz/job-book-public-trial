@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Job Book — sign in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#f2f4f7; --surface:#ffffff; --line:#d3d9e3; --line-soft:#e3e7ee;
+  --ink:#111b2b; --silver:#71809a; --navy:#1b3a63; --navy-ink:#ffffff;
+  --accent:#2c7f52; --owed:#a63a2b; --owed-soft:#fae9e6; --owed-line:#e6b8b0;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0d1523; --surface:#16223a; --line:#2b3d5e; --line-soft:#233350;
+    --ink:#e9eef7; --silver:#8494b0; --navy:#c5d8f2; --navy-ink:#0d1523;
+    --accent:#5cb98a; --owed:#ef9a8c; --owed-soft:#3a1c17; --owed-line:#75362c;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0d1523; --surface:#16223a; --line:#2b3d5e; --line-soft:#233350;
+  --ink:#e9eef7; --silver:#8494b0; --navy:#c5d8f2; --navy-ink:#0d1523;
+  --accent:#5cb98a; --owed:#ef9a8c; --owed-soft:#3a1c17; --owed-line:#75362c;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100dvh; display:grid; place-items:center; padding:24px;
+  background:var(--ground); color:var(--ink);
+  font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.card{
+  width:100%; max-width:370px; background:var(--surface);
+  border:1px solid var(--line-soft); border-radius:8px; padding:26px 22px;
+  box-shadow:0 1px 2px rgba(17,27,43,.06),0 8px 26px rgba(17,27,43,.07);
+}
+h1{
+  font-family:Archivo,sans-serif; font-weight:700; font-size:22px; margin:0 0 4px;
+  letter-spacing:-.015em;
+}
+.sub{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.11em;
+  text-transform:uppercase; color:var(--silver); margin:0 0 22px;
+}
+label{
+  display:block; font-family:"IBM Plex Mono",monospace; font-size:9.5px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--silver); margin-bottom:6px;
+}
+input{
+  width:100%; padding:12px 12px; font-size:16px; font-family:inherit; color:inherit;
+  background:var(--ground); border:1px solid var(--line); border-radius:6px;
+}
+input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+button{
+  width:100%; margin-top:14px; padding:12px; font-size:15px; font-weight:600;
+  font-family:Archivo,sans-serif; color:#fff; background:var(--accent);
+  border:1px solid var(--accent); border-radius:6px; cursor:pointer;
+}
+:root[data-theme="dark"] button{color:#08170f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button{color:#08170f}}
+button:hover{filter:brightness(1.06)}
+.err{
+  background:var(--owed-soft); border:1px solid var(--owed-line); color:var(--owed);
+  border-radius:6px; padding:9px 11px; font-size:14px; margin-bottom:16px;
+}
+.foot{margin:18px 0 0; font-size:12.5px; color:var(--silver); line-height:1.5}
+</style>
+</head>
+<body>
+  <form class="card" method="POST" action="/login">
+    <h1>Job Book</h1>
+    <p class="sub">Example Cleaning Co.</p>
+    {{ERROR}}
+    <label for="p">Passphrase</label>
+    <input id="p" name="passphrase" type="password" autocomplete="current-password"
+           autocapitalize="off" autocorrect="off" spellcheck="false" required autofocus>
+    <button type="submit">Sign in</button>
+    <p class="foot">You&rsquo;ll stay signed in on this phone for 90 days. This page holds client addresses and phone numbers &mdash; share the passphrase only with trusted teammates.</p>
+  </form>
+</body>
+</html>

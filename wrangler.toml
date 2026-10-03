@@ -1,0 +1,17 @@
+name = "job-book-your-business"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+# Serve the app and login pages as text modules.
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "job-book-your-business"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[observability]
+enabled = true

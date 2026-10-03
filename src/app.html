@@ -1,0 +1,2153 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#095237">
+<title>Job Book — public trial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+
+<style>
+:root{
+  --ground:#e8f2eb;
+  --surface:#ffffff;
+  --sunk:#d8ecdf;
+  --line:#a8cdb5;
+  --line-soft:#cde2d2;
+  --ink:#0b3023;
+  --ink-2:#285241;
+  --silver:#4c705d;
+  --navy:#095237;
+  --navy-2:#0b7b50;
+  --navy-ink:#ffffff;
+  --accent:#077e46;
+  --accent-soft:#daf8e5;
+  --accent-line:#78d39b;
+  --due:#895000;
+  --due-soft:#fff0c4;
+  --due-line:#e3b654;
+  --owed:#aa3024;
+  --owed-soft:#ffe7e1;
+  --owed-line:#e79789;
+  --shadow-sm:0 1px 2px rgba(16,26,43,.06);
+  --shadow:0 2px 5px rgba(10,72,43,.07),0 12px 30px rgba(10,72,43,.12);
+  --radius:16px;
+  --radius-sm:10px;
+  --avatar-adjust:none;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#071c19;
+    --surface:#103029;
+    --sunk:#19473b;
+    --line:#38715b;
+    --line-soft:#285b49;
+    --ink:#f5fff7;
+    --ink-2:#d6f0df;
+    --silver:#a9cdb7;
+    --navy:#116346;
+    --navy-2:#0a382e;
+    --navy-ink:#ffffff;
+    --accent:#69e79e;
+    --accent-soft:#163e2b;
+    --accent-line:#448660;
+    --due:#ffcf6e;
+    --due-soft:#4a3415;
+    --due-line:#8b641e;
+    --owed:#ffa99a;
+    --owed-soft:#4a2324;
+    --owed-line:#9d4c48;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.32);
+    --avatar-adjust:saturate(1.15);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#071c19;
+  --surface:#103029;
+  --sunk:#19473b;
+  --line:#38715b;
+  --line-soft:#285b49;
+  --ink:#f5fff7;
+  --ink-2:#d6f0df;
+  --silver:#a9cdb7;
+  --navy:#116346;
+  --navy-2:#0a382e;
+  --navy-ink:#ffffff;
+  --accent:#69e79e;
+  --accent-soft:#163e2b;
+  --accent-line:#448660;
+  --due:#ffcf6e;
+  --due-soft:#4a3415;
+  --due-line:#8b641e;
+  --owed:#ffa99a;
+  --owed-soft:#4a2324;
+  --owed-line:#9d4c48;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.32);
+  --avatar-adjust:saturate(1.15);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+}
+h1,h2,h3{font-family:Archivo,"Source Sans 3",sans-serif;margin:0;text-wrap:balance;letter-spacing:-.012em}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 96px}
+
+/* ---- top bar ---- */
+.topbar{
+  background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
+  color:var(--navy-ink);
+  position:sticky;top:0;z-index:30;
+  box-shadow:0 1px 0 rgba(0,0,0,.18);
+}
+.topbar-in{
+  max-width:1080px;margin:0 auto;padding:12px 18px;
+  display:flex;align-items:center;gap:10px;
+}
+.mark{
+  width:36px;height:36px;border-radius:11px;flex:none;
+  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.16);
+  display:grid;place-items:center;
+  font-family:Archivo,sans-serif;font-weight:700;font-size:13px;letter-spacing:-.03em;
+}
+.brand{font-family:Archivo,sans-serif;font-weight:700;font-size:14.5px;line-height:1.15;min-width:0}
+.brand span{
+  display:block;font-family:"IBM Plex Mono",monospace;font-weight:400;font-size:9px;
+  letter-spacing:.13em;text-transform:uppercase;opacity:.62;margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.bar-right{margin-left:auto;display:flex;align-items:center;gap:7px;flex:none}
+.who{
+  display:flex;align-items:center;gap:5px;cursor:pointer;
+  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.16);
+  color:inherit;padding:4px 9px 4px 5px;border-radius:20px;
+  font-family:Archivo,sans-serif;font-weight:600;font-size:12px;
+}
+.who .who-dot{width:17px;height:17px;font-size:8.5px}
+.sync{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.03em;padding:4px 9px;border-radius:20px;
+  background:rgba(255,255,255,.13);white-space:nowrap;
+}
+.sync[data-s="saving"]{background:var(--due-soft);color:var(--due)}
+.sync[data-s="saved"]{background:var(--accent-soft);color:var(--accent)}
+.sync[data-s="error"]{background:var(--owed-soft);color:var(--owed)}
+
+/* ---- who am I ---- */
+.who-dot{
+  border-radius:50%;display:grid;place-items:center;flex:none;
+  font-family:Archivo,sans-serif;font-weight:700;color:#fff;
+  width:18px;height:18px;font-size:9px;letter-spacing:0;
+  filter:var(--avatar-adjust);
+}
+.who-dot.owner{background:#2f5f96}
+.who-dot.teammate{background:#2c7f52}
+.idbar{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:13px 14px;margin:14px 0 0;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.idbar p{margin:0;font-size:14.5px;flex:1;min-width:150px}
+
+/* ---- pulse tiles ---- */
+.pulse{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.tile{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:17px 18px;box-shadow:var(--shadow);min-width:0;
+}
+.tile.warn{background:var(--owed-soft);border-color:var(--owed-line)}
+.tile.go{background:var(--accent-soft);border-color:var(--accent-line)}
+.tile .k{
+  font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--silver);display:block;margin-bottom:6px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.tile .v{
+  font-family:Archivo,sans-serif;font-weight:700;font-size:27px;line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-.028em;display:block;
+}
+.tile .s{font-size:12px;color:var(--silver);margin-top:4px;display:block;line-height:1.35}
+.tile.warn .v{color:var(--owed)}
+.tile.warn .s{color:var(--owed)}
+.tile.go .v{color:var(--accent)}
+.tile:first-child{background:linear-gradient(135deg,var(--navy),var(--navy-2));border-color:transparent;color:var(--navy-ink)}
+.tile:first-child .k,.tile:first-child .s{color:rgba(255,255,255,.83)}
+.tile:first-child .v{color:#fff}
+
+/* ---- tabs ---- */
+.tabs{display:flex;gap:4px;background:var(--sunk);padding:5px;border-radius:var(--radius);margin-bottom:18px;overflow-x:auto;scrollbar-width:thin}
+.tabs button{
+  flex:1 0 auto;background:none;border:0;padding:10px 12px;border-radius:var(--radius-sm);cursor:pointer;
+  font-family:Archivo,sans-serif;font-weight:600;font-size:13px;color:var(--ink-2);
+  transition:background .18s ease,color .18s ease,transform .18s ease;
+}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-sm)}
+.tabs button:hover{background:var(--surface);transform:translateY(-1px)}
+
+/* ---- week strip ---- */
+.weekstrip{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin:0 0 18px;
+}
+.wday{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius-sm);
+  padding:7px 3px 6px;text-align:center;box-shadow:var(--shadow-sm);min-height:56px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+.wday .d{
+  font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--silver);
+}
+.wday .n{font-family:Archivo,sans-serif;font-weight:700;font-size:15px;line-height:1;font-variant-numeric:tabular-nums}
+.wday.now{background:var(--navy);border-color:var(--navy)}
+.wday.now .d,.wday.now .n{color:var(--navy-ink)}
+.wday.past{opacity:.55}
+.dots{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;margin-top:auto}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--due)}
+.dot.done{background:var(--accent)}
+.wday.now .dot{box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+
+/* ---- calendar ---- */
+.calgrid{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:11px;margin-bottom:16px;
+}
+.cal-dows{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+.cal-dow{
+  font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--silver);text-align:center;
+}
+.cal-cells{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-cell{
+  aspect-ratio:1/1;min-height:42px;min-width:0;background:var(--ground);border:1px solid var(--line-soft);
+  border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;padding:3px 2px;cursor:pointer;font:inherit;color:inherit;overflow:hidden;
+}
+.cal-cell.empty{background:none;border-color:transparent;cursor:default}
+.cal-cell.past{opacity:.5}
+.cal-cell.today{border-color:var(--navy);border-width:2px}
+.cal-cell.sel{background:var(--navy);border-color:var(--navy)}
+.cal-cell.sel .cal-n{color:var(--navy-ink)}
+.cal-n{font-family:Archivo,sans-serif;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.cal-dots{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;max-width:100%}
+.cal-dot{width:5px;height:5px;border-radius:50%;flex:none}
+.cal-dot.done{background:var(--accent)}
+.cal-dot.skip{background:var(--silver);opacity:.6}
+
+/* ---- day rule ---- */
+.dayrule{display:flex;align-items:center;gap:10px;margin:20px 0 9px}
+.dayrule:first-child{margin-top:2px}
+.dayrule h2{
+  font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap;
+}
+.dayrule.now h2{
+  background:var(--navy);color:var(--navy-ink);padding:3px 8px;border-radius:4px;
+}
+.dayrule .bar{flex:1;height:1px;background:var(--line)}
+.dayrule .cnt{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--silver)}
+
+/* ---- cards ---- */
+.card{
+  background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:17px 18px;margin-bottom:12px;box-shadow:var(--shadow);
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(16,45,33,.10);border-color:var(--line)}
+.client-card{border-left:4px solid var(--accent-line)}
+.client-card[data-status="paused"]{border-left-color:var(--due-line)}
+.client-card[data-status="ended"]{border-left-color:var(--silver)}
+.card.done{background:var(--accent-soft);border-color:var(--accent-line)}
+.card-top{display:flex;align-items:flex-start;gap:10px}
+.card h3{font-size:17px;font-weight:600;line-height:1.25;flex:1;min-width:0}
+.client-heading-button{width:100%;display:flex;align-items:center;gap:10px;padding:0;border:0;background:none;text-align:left;cursor:pointer;color:var(--ink);font:inherit;min-width:0}
+.client-heading-button:hover .client-name-text{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.client-name-text{min-width:0;overflow-wrap:anywhere}
+.client-expand-icon{margin-left:auto;display:grid;place-items:center;width:25px;height:25px;flex:none;border-radius:50%;background:var(--accent-soft);color:var(--accent);font:700 18px Archivo,sans-serif;line-height:1}
+.client-heading-button[aria-expanded="true"] .client-expand-icon{background:var(--accent);color:var(--surface)}
+.meta{color:var(--silver);font-size:13.5px;margin:3px 0 0}
+.meta b{color:var(--ink-2);font-weight:600}
+.amt{
+  font-family:Archivo,sans-serif;font-weight:700;font-size:17px;
+  font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:-.025em;
+}
+.av{
+  width:36px;height:36px;border-radius:11px;display:grid;place-items:center;flex:none;
+  font-family:Archivo,sans-serif;font-weight:700;font-size:13.5px;color:#fff;
+  letter-spacing:-.02em;filter:var(--avatar-adjust);
+}
+
+.pill{
+  font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 7px;border-radius:3px;border:1px solid;white-space:nowrap;display:inline-block;
+}
+.pill.due{color:var(--due);background:var(--due-soft);border-color:var(--due-line)}
+.pill.done{color:var(--accent);background:var(--accent-soft);border-color:var(--accent-line)}
+.pill.owed{color:var(--owed);background:var(--owed-soft);border-color:var(--owed-line)}
+.pill.flat{color:var(--silver);background:var(--sunk);border-color:var(--line-soft)}
+
+.acts{display:flex;gap:7px;margin-top:11px;flex-wrap:wrap}
+.btn{
+  background:var(--surface);border:1px solid var(--line);color:var(--ink);
+  padding:10px 15px;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;font-size:14px;
+  font-family:Archivo,sans-serif;text-decoration:none;display:inline-block;
+  transition:transform .16s ease,background .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+.btn:hover{border-color:var(--accent);box-shadow:0 3px 12px rgba(24,81,51,.12);transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn.go{background:var(--accent);border-color:var(--accent);color:#fff}
+:root[data-theme="dark"] .btn.go{color:#07160e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.go{color:#07160e}}
+.btn.go:hover{filter:brightness(1.06)}
+.btn.go{box-shadow:0 4px 12px rgba(35,125,86,.18)}
+.btn.wide{flex:1;min-width:120px;text-align:center}
+.btn.sm{padding:6px 11px;font-size:12.5px}
+.btn.link{background:none;border:0;color:var(--silver);text-decoration:underline;padding:5px 2px;font-size:13px}
+.btn.edit{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+.btn.edit:hover{background:var(--accent-line);color:var(--ink)}
+.btn:disabled{opacity:.46;cursor:default;box-shadow:none;transform:none}
+
+/* ---- inline form ---- */
+.form{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);display:grid;gap:11px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:9px}
+.f{display:flex;flex-direction:column;gap:4px;min-width:0}
+.f label{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--silver)}
+.f input,.f select,.f textarea{
+  background:var(--ground);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:9px 10px;font-size:15px;width:100%;
+}
+.f textarea{resize:vertical;min-height:60px;line-height:1.45}
+.f input[type="number"]{font-variant-numeric:tabular-nums}
+.checks{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.chk{display:flex;align-items:center;gap:7px;font-size:14.5px;cursor:pointer}
+.chk input{width:19px;height:19px;accent-color:var(--accent);margin:0}
+
+/* ---- notes thread ---- */
+.threadwrap{display:grid;gap:8px}
+.threadwrap>.lbl{
+  font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--silver);
+}
+.thread{
+  border:1px solid var(--line-soft);border-radius:var(--radius-sm);
+  background:var(--ground);overflow:hidden;
+}
+.note-item{padding:9px 11px;border-bottom:1px solid var(--line-soft)}
+.note-item:last-child{border-bottom:0}
+.note-head{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.note-who{font-family:Archivo,sans-serif;font-weight:600;font-size:12.5px}
+.note-when{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--silver)}
+.note-act{margin-left:auto;display:flex;gap:2px}
+.note-act button{
+  background:none;border:0;cursor:pointer;color:var(--silver);
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.05em;
+  text-transform:uppercase;padding:2px 5px;border-radius:3px;
+}
+.note-act button:hover{color:var(--ink);background:var(--sunk)}
+.note-body{font-size:14.5px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+.composer{display:grid;gap:7px}
+.composer textarea{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:9px 10px;font-size:15px;width:100%;resize:vertical;min-height:52px;line-height:1.45;
+}
+.composer .send{display:flex;justify-content:flex-end;gap:7px;align-items:center}
+.composer .hint{margin-right:auto;font-size:12px;color:var(--silver)}
+.thread-empty{padding:11px;color:var(--silver);font-size:13.5px;text-align:center}
+.photopick{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.photopick input[type="file"]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.photopick label.btn{cursor:pointer;margin:0}
+.photo-preview{width:44px;height:44px;object-fit:cover;border-radius:6px;border:1px solid var(--line);flex:none}
+.note-photo{display:block;margin-top:7px}
+.note-photo img{max-width:220px;max-height:220px;border-radius:8px;border:1px solid var(--line-soft);display:block;object-fit:cover}
+
+/* ---- client brief ---- */
+.brief{margin-top:11px;display:grid;gap:11px}
+.brief dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.brief dt{
+  font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--silver);padding-top:4px;white-space:nowrap;
+}
+.brief dd{margin:0;color:var(--ink-2)}
+.brief a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+:root[data-theme="dark"] .brief a{color:var(--accent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brief a{color:var(--accent)}}
+
+.flag{
+  background:var(--due-soft);border:1px solid var(--due-line);color:var(--due);
+  border-radius:var(--radius-sm);padding:8px 10px;font-size:13.5px;margin-top:9px;
+}
+.flag b{font-weight:600}
+
+/* ---- table ---- */
+.tablewrap{
+  overflow-x:auto;background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:430px}
+th{
+  font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--silver);text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);font-weight:400;
+}
+td{padding:9px 11px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tfoot td{font-weight:700;font-family:Archivo,sans-serif;border-top:1px solid var(--line);border-bottom:0}
+.mono{font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+
+.empty{
+  text-align:center;padding:30px 16px;color:var(--silver);font-size:14.5px;
+  background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);
+}
+.note{font-size:13px;color:var(--silver);margin:10px 2px 0;line-height:1.5}
+.banner{
+  background:var(--owed-soft);border:1px solid var(--owed-line);color:var(--owed);
+  padding:10px 12px;border-radius:var(--radius);margin:12px 0;font-size:14px;
+}
+.sechead{display:flex;align-items:center;gap:10px;margin:22px 0 10px}
+.sechead h2{font-size:15px;font-weight:700}
+.sechead .bar{flex:1;height:1px;background:var(--line)}
+
+/* ---- hours overview and client discovery ---- */
+.page-intro{padding:5px 2px 14px}
+.page-intro h1{font-size:clamp(25px,3.5vw,34px);line-height:1.15}
+.page-intro p{color:var(--silver);margin:6px 0 0;font-size:14px}
+.quicklinks{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 15px}
+.quicklinks .btn{display:inline-flex;align-items:center;gap:6px}
+.client-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;position:sticky;top:61px;z-index:24;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);border-radius:var(--radius);padding:8px 10px;margin:0 0 14px}
+.client-tools-label{font:600 12px Archivo,sans-serif;color:var(--ink-2);margin-right:auto}
+.client-tools .btn{white-space:nowrap}
+.searchbox{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:3px 0 14px;box-shadow:var(--shadow-sm)}
+.hours-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 20px}
+.hours-stat{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);padding:15px 17px;box-shadow:var(--shadow-sm)}
+.hours-stat b{display:block;font:700 24px Archivo,sans-serif;color:var(--navy)}
+.hours-stat span{font-size:12px;color:var(--silver)}
+.hours-row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(100px,2fr) auto;align-items:center;gap:12px}
+.hours-track{height:10px;border-radius:20px;background:var(--sunk);overflow:hidden}
+.hours-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--accent),#65b98a);min-width:2px}
+.hours-detail{margin-top:13px;border-top:1px solid var(--line-soft);padding-top:12px}
+.hours-visit{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line-soft);font-size:13px}
+.hours-visit:last-child{border-bottom:0}
+.hours-visit span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+.filterchips{display:flex;gap:7px;flex-wrap:wrap;margin:4px 0 14px}
+.filterchips .btn[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.quickhour{display:flex;gap:6px;margin-top:5px}
+.quickhour .btn{flex:1;padding:5px 8px;font-size:12px}
+.hours-stat b{color:var(--accent)}
+
+#view{animation:rise .18s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+@media (max-width:520px){
+  .pulse{grid-template-columns:1fr 1fr}
+  .pulse .tile:first-child{grid-column:1/-1}
+  .tile .v{font-size:25px}
+  .brand span{display:none}
+  .weekstrip{gap:4px}
+  .wday{padding:6px 2px;min-height:52px}
+  .cal-cell{min-height:38px}
+  .wrap{padding:0 12px 105px}
+  .topbar-in{padding:9px 12px}
+  .tabs{position:sticky;top:55px;z-index:25;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;margin:0 -12px 14px;border-radius:0;box-shadow:0 5px 15px rgba(16,45,33,.07)}
+  .tabs button{min-width:0;padding:9px 2px;font-size:11.5px}
+  .client-tools{top:138px;margin-left:-12px;margin-right:-12px;border-radius:0;padding:7px 12px}
+  .client-tools-label{flex-basis:100%}
+  .card{padding:14px}
+  .hours-summary{grid-template-columns:repeat(2,1fr)}
+  .hours-stat:first-child{grid-column:1/-1}
+  .hours-row{grid-template-columns:1fr auto;gap:7px}
+  .hours-row .hours-track{grid-column:1/-1;grid-row:2}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .btn:active{transform:none}
+}
+.demo-notice{max-width:1140px;margin:14px auto 0;padding:10px 14px;border:1px solid var(--accent-line);border-radius:12px;background:var(--accent-soft);color:var(--ink);font-size:13px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.demo-notice button{border:1px solid var(--accent-line);border-radius:8px;background:var(--surface);color:var(--ink);padding:6px 10px;cursor:pointer}
+@media(max-width:520px){.demo-notice{margin:10px 12px 0}}
+</style>
+
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="mark">JB</div>
+    <div class="brand">Job Book<span>Example Cleaning Co.</span></div>
+    <div class="bar-right">
+      <button class="who" id="who" type="button" title="Switch who's using this phone"></button>
+      <div class="sync" id="sync">starting</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="idbar"></div>
+  <div id="banner"></div>
+  <div class="pulse" id="pulse"></div>
+  <nav class="tabs" id="tabs" role="tablist">
+    <button role="tab" data-tab="today" aria-selected="true">Today</button>
+    <button role="tab" data-tab="clients" aria-selected="false">Clients</button>
+    <button role="tab" data-tab="hours" aria-selected="false">Hours</button>
+    <button role="tab" data-tab="money" aria-selected="false">Money</button>
+    <button role="tab" data-tab="week" aria-selected="false">Week</button>
+    <button role="tab" data-tab="calendar" aria-selected="false">Calendar</button>
+    <button role="tab" data-tab="former" aria-selected="false">Former</button>
+  </nav>
+  <main id="view"></main>
+  <p class="note" style="text-align:center;margin-top:28px"><a href="/logout" style="color:var(--silver)">Sign out of this phone</a></p>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================ state ============================ */
+var UI_KEY = "jobbook.public-demo.ui.v1";
+var state = null;
+var ui = {tab:"today", open:{}, draft:{}, me:null, weekOff:0, hoursRange:"all", clientSearch:""};
+/* Picked-but-not-yet-uploaded photos, keyed like ui.draft. Kept in memory
+   only (not persisted) — a File object can't survive a reload, and losing
+   an unsent photo pick on reload is no worse than losing typed text would
+   be in a normal browser form. */
+var pendingPhoto = {};
+
+try{ ui = Object.assign(ui, JSON.parse(localStorage.getItem(UI_KEY) || "{}")); }catch(e){}
+function saveUI(){ try{ localStorage.setItem(UI_KEY, JSON.stringify(ui)); }catch(e){} }
+
+var KINDS = ["clients", "visits", "notes"];
+var DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var CREW = ["Owner", "Teammate", "Both"];
+var WEEK_ANCHOR = "2026-01-04";   // Sunday of week 1 in this demo
+var WEEK_ANCHOR_NO = 1;
+var AVATAR_INKS = ["#1b3a63","#2c7f52","#8c5a3c","#4a5f7a","#6b4a6b","#37665f"];
+
+/* ============================ helpers ============================ */
+function uid(p){ return p + "-" + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function esc(s){
+  return String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function money(n){
+  var v = Number(n) || 0;
+  return "$" + v.toLocaleString("en-AU", {minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2});
+}
+function hrs(n){
+  var v = Number(n)||0;
+  return v.toLocaleString("en-AU", {maximumFractionDigits:2}) + " hr" + (v === 1 ? "" : "s");
+}
+function ymd(d){
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+function parseYmd(s){
+  if(!s) return null;
+  var p = String(s).split("-");
+  if(p.length !== 3) return null;
+  var d = new Date(+p[0], +p[1]-1, +p[2]);
+  return isNaN(d) ? null : d;
+}
+function today(){ var d = new Date(); d.setHours(0,0,0,0); return d; }
+function addDays(d, n){ var x = new Date(d.getTime()); x.setDate(x.getDate()+n); return x; }
+function daysBetween(a, b){ return Math.round((b - a) / 86400000); }
+function fmtDate(s){
+  var d = parseYmd(s); if(!d) return "";
+  return DAYS[d.getDay()] + " " + d.getDate() + " " + MONTHS[d.getMonth()];
+}
+function fmtDateLong(s){
+  var d = parseYmd(s); if(!d) return "";
+  return DAYS[d.getDay()] + " " + d.getDate() + " " + MONTHS[d.getMonth()] + " " + d.getFullYear();
+}
+function relDay(s){
+  var d = parseYmd(s); if(!d) return "";
+  var n = daysBetween(today(), d);
+  if(n === 0) return "Today";
+  if(n === 1) return "Tomorrow";
+  if(n === -1) return "Yesterday";
+  if(n < 0) return Math.abs(n) + " days ago";
+  return "in " + n + " days";
+}
+function ago(ms){
+  var diff = Date.now() - Number(ms || 0);
+  if(diff < 90000) return "just now";
+  var mins = Math.round(diff / 60000);
+  if(mins < 60) return mins + " min ago";
+  var h = Math.round(diff / 3600000);
+  if(h < 24) return h + " hr" + (h === 1 ? "" : "s") + " ago";
+  var d = Math.round(diff / 86400000);
+  if(d < 7) return d + " day" + (d === 1 ? "" : "s") + " ago";
+  var dt = new Date(Number(ms));
+  return DAYS[dt.getDay()] + " " + dt.getDate() + " " + MONTHS[dt.getMonth()];
+}
+function weekStart(d){ return addDays(d, -d.getDay()); }        // Sunday
+function weekNoOf(d){
+  var a = parseYmd(WEEK_ANCHOR);
+  return WEEK_ANCHOR_NO + Math.floor(daysBetween(a, weekStart(d)) / 7);
+}
+function initials(name){
+  var parts = String(name || "").trim().split(/\s+/);
+  return ((parts[0] || "")[0] || "?") + ((parts[1] || "")[0] || "");
+}
+function avatarInk(name){
+  var h = 0, s = String(name || "");
+  for(var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return AVATAR_INKS[h % AVATAR_INKS.length];
+}
+function avatar(name){
+  return '<span class="av" style="background:' + avatarInk(name) + '" aria-hidden="true">' +
+    esc(initials(name).toUpperCase()) + '</span>';
+}
+function whoDot(name){
+  var cls = String(name).toLowerCase().indexOf("teammate") === 0 ? "teammate" : "owner";
+  return '<span class="who-dot ' + cls + '">' + esc(initials(name)[0].toUpperCase()) + '</span>';
+}
+function me(){ return ui.me || "Owner"; }
+
+/* Downscale and re-encode a picked photo before it ever leaves the phone —
+   a modern phone camera easily produces 5-10MB per shot, which is slow to
+   upload on a job site's spotty signal and wasteful to store for years. */
+function compressImage(file){
+  return new Promise(function(resolve, reject){
+    var img = new Image();
+    var url = URL.createObjectURL(file);
+    img.onload = function(){
+      URL.revokeObjectURL(url);
+      var maxDim = 1600;
+      var scale = Math.min(1, maxDim / Math.max(img.width, img.height));
+      var w = Math.max(1, Math.round(img.width * scale));
+      var h = Math.max(1, Math.round(img.height * scale));
+      var canvas = document.createElement("canvas");
+      canvas.width = w; canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      canvas.toBlob(function(blob){
+        if(blob) resolve(blob); else reject(new Error("could not compress that photo"));
+      }, "image/jpeg", 0.82);
+    };
+    img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error("could not read that photo")); };
+    img.src = url;
+  });
+}
+
+function client(id){
+  for(var i=0;i<state.clients.length;i++){
+    if(state.clients[i].id === id && !state.clients[i].deleted) return state.clients[i];
+  }
+  return null;
+}
+function visitOn(clientId, date){
+  for(var i=0;i<state.visits.length;i++){
+    var v = state.visits[i];
+    if(v.clientId === clientId && v.date === date && !v.deleted) return v;
+  }
+  return null;
+}
+function byId(kind, id){
+  var list = state[kind] || [];
+  for(var i=0;i<list.length;i++){ if(list[i].id === id) return list[i]; }
+  return null;
+}
+function canWrite(){ return true; }
+
+/* ============================ scheduling ============================ */
+/* A client is due on a date when the weekday matches, and — for fortnightly —
+   the week lines up with the anchor week. No anchor means we do not guess. */
+function isDue(c, d){
+  if(c.status !== "active") return false;
+  if(!c.days || !c.days.length) return false;
+  if(c.days.indexOf(DAYS[d.getDay()]) === -1) return false;
+  if(c.plan === "fortnightly"){
+    var a = parseYmd(c.anchor);
+    if(!a) return false;
+    var w = Math.round(daysBetween(weekStart(a), weekStart(d)) / 7);
+    return w % 2 === 0;
+  }
+  return c.plan === "weekly";
+}
+/* A client shows up on a date either because it matches their recurring
+   pattern, or because a one-off visit was explicitly scheduled or logged
+   there (a moved occurrence, an extra job, a historical correction). The
+   `oneOff` flag distinguishes the two so the UI can offer "cancel" instead
+   of "skip" for a placeholder that was never part of the pattern. */
+function dueOn(c, d, v){
+  return isDue(c, d) || (!!v && v.status !== "skipped");
+}
+function upcoming(fromDate, span){
+  var out = [];
+  for(var i=0;i<span;i++){
+    var d = addDays(fromDate, i), ds = ymd(d);
+    for(var j=0;j<state.clients.length;j++){
+      var c = state.clients[j];
+      if(c.deleted) continue;
+      var v = visitOn(c.id, ds);
+      if(!dueOn(c, d, v)) continue;
+      out.push({date: ds, client: c, visit: v, oneOff: !isDue(c, d)});
+    }
+  }
+  return out;
+}
+function needsDate(){
+  return state.clients.filter(function(c){
+    return !c.deleted && c.status === "active" && c.plan === "fortnightly" && !c.anchor;
+  });
+}
+
+/* ============================ derived money ============================ */
+function doneVisits(){ return state.visits.filter(function(v){ return !v.deleted && v.status === "done"; }); }
+function wantsInvoice(c){ return !!c && c.wantsInvoice !== false; }
+/* Everything done and not yet paid — whether or not it needed paperwork. */
+function unpaid(){ return doneVisits().filter(function(v){ return !v.paid; }); }
+/* The subset of that still waiting on an invoice being sent. */
+function needsInvoice(){
+  return unpaid().filter(function(v){ return wantsInvoice(client(v.clientId)) && !v.invoiced; });
+}
+function paidBetween(a, b){
+  return doneVisits().filter(function(v){ return v.paid && v.paidAt && v.paidAt >= a && v.paidAt <= b; });
+}
+function sum(list, f){ return list.reduce(function(a,v){ return a + (Number(f(v))||0); }, 0); }
+
+/* ============================ notes ============================ */
+function notesForVisit(visitId){
+  return state.notes.filter(function(n){ return !n.deleted && n.visitId === visitId; })
+    .sort(function(a,b){ return (a.at||0) - (b.at||0); });
+}
+function notesForClient(clientId, limit){
+  var list = state.notes.filter(function(n){ return !n.deleted && n.clientId === clientId; })
+    .sort(function(a,b){ return (b.at||0) - (a.at||0); });
+  return limit ? list.slice(0, limit) : list;
+}
+
+/* ============================ persistence ============================
+   Cloudflare Worker build. Offline-first: every change lands in
+   localStorage straight away so the app keeps working in a client's house
+   with no signal, then goes to the Worker when there is signal. Records
+   merge by `updatedAt`, newest wins per record, so two teammates can both
+   be editing without clobbering each other. */
+
+/* The Worker has D1 photo storage behind it, so the photo-attach control renders here. */
+var PHOTOS_ENABLED = true;
+function uploadPhoto(blob){
+  return fetch("/api/photo", {
+    method: "POST",
+    headers: {"Content-Type": blob.type || "image/jpeg"},
+    body: blob
+  }).then(function(res){
+    if(!res.ok) throw new Error("upload failed: " + res.status);
+    return res.json();
+  }).then(function(data){ return data.key; });
+}
+
+var CACHE_KEY = "jobbook.worker.v1";
+var lastSync = 0;
+var dirty = null;
+var pushTimer = null, pullTimer = null, failures = 0, syncing = false;
+var offlineSince = 0;
+var POLL_MS = 9000;
+
+function freshDirty(){
+  var d = {settings: false};
+  KINDS.forEach(function(k){ d[k] = {}; });
+  return d;
+}
+dirty = freshDirty();
+
+function setSync(s, text){
+  var el = document.getElementById("sync");
+  el.setAttribute("data-s", s);
+  el.textContent = text;
+}
+
+function hasDirty(){
+  if(dirty.settings) return true;
+  for(var i=0;i<KINDS.length;i++){
+    if(Object.keys(dirty[KINDS[i]]).length) return true;
+  }
+  return false;
+}
+
+function touch(rec, kind){
+  rec.updatedAt = Date.now();
+  if(kind === "settings") dirty.settings = true;
+  else if(kind && dirty[kind]) dirty[kind][rec.id] = 1;
+  saveCache();
+}
+
+function saveCache(){
+  try{
+    localStorage.setItem(CACHE_KEY, JSON.stringify({state:state, lastSync:lastSync, dirty:dirty}));
+  }catch(e){}
+}
+
+function loadCache(){
+  try{
+    var raw = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+    if(raw && raw.state && raw.state.clients){
+      state = raw.state;
+      KINDS.forEach(function(k){ if(!state[k]) state[k] = []; });
+      lastSync = raw.lastSync || 0;
+      dirty = Object.assign(freshDirty(), raw.dirty || {});
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
+
+function collectDirty(){
+  var out = {};
+  KINDS.forEach(function(k){
+    out[k] = state[k].filter(function(r){ return dirty[k][r.id]; });
+  });
+  if(dirty.settings) out.settings = state.settings;
+  return out;
+}
+
+function pendingCount(out){
+  var n = dirty.settings ? 1 : 0;
+  KINDS.forEach(function(k){ n += out[k].length; });
+  return n;
+}
+
+/* Anything still dirty here is ours and unsent, so the server's copy must
+   not overwrite it — our next push settles the difference. */
+function applyRemote(data){
+  var changed = false;
+  KINDS.forEach(function(kind){
+    (data[kind] || []).forEach(function(inc){
+      if(!inc || !inc.id) return;
+      var list = state[kind], found = null;
+      for(var i=0;i<list.length;i++){ if(list[i].id === inc.id){ found = list[i]; break; } }
+      if(!found){ list.push(inc); changed = true; }
+      else if(!dirty[kind][inc.id] && (inc.updatedAt||0) > (found.updatedAt||0)){
+        Object.assign(found, inc);
+        changed = true;
+      }
+    });
+  });
+  if(data.settings && !dirty.settings &&
+     (data.settings.updatedAt||0) > ((state.settings && state.settings.updatedAt)||0)){
+    state.settings = data.settings;
+    changed = true;
+  }
+  if(data.now) lastSync = data.now;
+  return changed;
+}
+
+function isEditing(){
+  var a = document.activeElement;
+  return !!(a && (a.tagName === "INPUT" || a.tagName === "TEXTAREA" || a.tagName === "SELECT"));
+}
+
+function schedulePush(){
+  clearTimeout(pushTimer);
+  setSync("saving", "saving…");
+  pushTimer = setTimeout(function(){ sync(true); }, 900);
+}
+function scheduleSave(){ schedulePush(); }
+
+function sync(push){
+  if(syncing) return Promise.resolve();
+  syncing = true;
+
+  var sending = push ? collectDirty() : null;
+  var count = sending ? pendingCount(sending) : 0;
+
+  var request = count
+    ? fetch("/api/sync", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({since:lastSync, changes:sending})
+      })
+    : fetch("/api/state?since=" + lastSync);
+
+  return request.then(function(res){
+    if(res.status === 401){ location.href = "/"; return null; }
+    if(!res.ok) throw new Error("http " + res.status);
+    return res.json();
+  }).then(function(data){
+    if(!data) return;
+
+    if(count){
+      KINDS.forEach(function(k){
+        sending[k].forEach(function(r){ delete dirty[k][r.id]; });
+      });
+      if(sending.settings) dirty.settings = false;
+    }
+
+    var changed = applyRemote(data);
+    saveCache();
+    failures = 0;
+    var wasOffline = !!offlineSince;
+    offlineSince = 0;
+
+    setSync("saved", hasDirty() ? "saving…"
+      : "synced " + new Date().toLocaleTimeString("en-AU", {hour:"numeric", minute:"2-digit"}));
+
+    if((changed || wasOffline) && !isEditing()) render();
+  }).catch(function(){
+    failures++;
+    if(!offlineSince){ offlineSince = Date.now(); if(!isEditing()) render(); }
+    setSync("error", hasDirty() ? "saved on this phone" : "no signal");
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(function(){ sync(true); }, Math.min(30000, 2500 * failures));
+  }).finally(function(){
+    syncing = false;
+  });
+}
+
+function startPolling(){
+  clearInterval(pullTimer);
+  pullTimer = setInterval(function(){
+    if(document.visibilityState === "visible") sync(hasDirty());
+  }, POLL_MS);
+}
+
+document.addEventListener("visibilitychange", function(){
+  if(document.visibilityState === "visible") sync(hasDirty());
+});
+window.addEventListener("online", function(){ sync(true); });
+
+function load(){
+  var cached = loadCache();
+  if(cached){
+    render();
+    setSync("saving", "syncing…");
+  }else{
+    state = {v:2, settings:{nextInvoiceNo:1}, clients:[], visits:[], notes:[]};
+    setSync("saving", "loading…");
+  }
+  return sync(hasDirty()).then(function(){
+    render();
+    startPolling();
+  });
+}
+
+/* ============================ actions ============================ */
+function markDone(clientId, date){
+  var c = client(clientId);
+  var v = visitOn(clientId, date);
+  if(!v){
+    v = {
+      id: uid("v"), clientId: clientId, date: date,
+      hours: c.hours, amount: (Number(c.hours)||0) * (Number(c.rate)||0),
+      status: "done", crew: me(), invoiceNo: "", invoiced: false,
+      paid: false, paidAt: "", updatedAt: 0
+    };
+    state.visits.push(v);
+  }else{
+    v.status = "done";
+  }
+  touch(v, "visits");
+  /* A one-off logged on a weekday outside the client's pattern must never
+     become the fortnightly anchor — that would silently shift which week
+     is "theirs" for every future occurrence. */
+  var weekday = DAYS[parseYmd(date).getDay()];
+  var matchesPattern = c.days && c.days.indexOf(weekday) !== -1;
+  if(matchesPattern && (!c.anchor || date > c.anchor)){ c.anchor = date; touch(c, "clients"); }
+  ui.open["v:" + v.id] = true;
+  saveUI();
+  scheduleSave();
+  render();
+}
+function markSkipped(clientId, date){
+  var c = client(clientId);
+  var v = visitOn(clientId, date);
+  if(!v){
+    v = {id: uid("v"), clientId: clientId, date: date, hours: 0, amount: 0,
+         status: "skipped", crew: me(), invoiceNo: "", invoiced: false,
+         paid: false, paidAt: "", updatedAt: 0};
+    state.visits.push(v);
+  }else{
+    v.status = "skipped"; v.hours = 0; v.amount = 0; v.invoiced = false; v.paid = false;
+  }
+  touch(v, "visits");
+  scheduleSave();
+  render();
+}
+function undoVisit(id){
+  var v = byId("visits", id);
+  if(!v) return;
+  v.deleted = true;
+  touch(v, "visits");
+  scheduleSave();
+  render();
+}
+function patchVisit(id, key, val){
+  var v = byId("visits", id);
+  if(!v) return;
+  v[key] = val;
+  if(key === "hours"){
+    var c = client(v.clientId);
+    if(c) v.amount = (Number(val)||0) * (Number(c.rate)||0);
+  }
+  if(key === "invoiceNo" && val){
+    v.invoiced = true;
+    var n = parseInt(String(val).replace(/\D/g,""), 10);
+    if(!isNaN(n) && n >= (state.settings.nextInvoiceNo||0)){
+      state.settings.nextInvoiceNo = n + 1;
+      touch(state.settings, "settings");
+    }
+  }
+  if(key === "paid") v.paidAt = val ? ymd(today()) : "";
+  touch(v, "visits");
+  scheduleSave();
+}
+function patchClient(id, key, val){
+  var c = client(id);
+  if(!c) return;
+  if(key === "wantsInvoice") val = (val === "yes" || val === true);
+  c[key] = val;
+  touch(c, "clients");
+  scheduleSave();
+}
+function toggleClientDay(clientId, day){
+  var c = client(clientId);
+  if(!c) return;
+  var days = (c.days || []).slice();
+  var i = days.indexOf(day);
+  if(i >= 0) days.splice(i, 1); else days.push(day);
+  patchClient(clientId, "days", days);
+}
+function createClient(fields){
+  var c = {
+    id: uid("c"), name: fields.name, status: "active", wantsInvoice: fields.wantsInvoice,
+    service: fields.service, plan: fields.plan, days: fields.days,
+    hours: fields.hours, rate: fields.rate, anchor: fields.anchor || null,
+    jobNo: fields.jobNo || "", crew: fields.crew || "Teammate", phone: fields.phone, email: fields.email,
+    billTo: "", address: fields.address, suburb: fields.suburb, window: "",
+    pets: "", access: "", priorities: "", home: "", notes: "", flag: "",
+    updatedAt: 0
+  };
+  state.clients.push(c);
+  touch(c, "clients");
+  scheduleSave();
+  return c;
+}
+/* Schedule a one-off visit for a client on a date outside their normal
+   pattern. Left as "scheduled" until ticked done or cancelled — jobCard's
+   undone branch handles a scheduled placeholder exactly like a fresh
+   recurring day, so no separate rendering path is needed. */
+function scheduleOne(clientId, date){
+  var c = client(clientId);
+  if(!c || visitOn(clientId, date)) return;
+  var v = {
+    id: uid("v"), clientId: clientId, date: date,
+    hours: c.hours, amount: (Number(c.hours)||0) * (Number(c.rate)||0),
+    status: "scheduled", crew: me(), invoiceNo: "", invoiced: false,
+    paid: false, paidAt: "", updatedAt: 0
+  };
+  state.visits.push(v);
+  touch(v, "visits");
+  scheduleSave();
+  render();
+}
+/* Move a single occurrence to a different date without touching the
+   client's recurring pattern. If nothing was recorded at the old date yet
+   (a plain recurring day), the old date is suppressed with a skip record
+   and a scheduled placeholder is created at the new date. If a visit
+   already exists (scheduled or done), its date simply changes. */
+function moveOccurrence(clientId, oldDate, newDate){
+  if(!newDate || newDate === oldDate) return;
+  var c = client(clientId);
+  if(!c) return;
+  var v = visitOn(clientId, oldDate);
+  if(v){
+    if(visitOn(clientId, newDate)) return;
+    v.date = newDate;
+    touch(v, "visits");
+  }else{
+    state.visits.push({
+      id: uid("v"), clientId: clientId, date: oldDate, hours: 0, amount: 0,
+      status: "skipped", crew: me(), invoiceNo: "", invoiced: false,
+      paid: false, paidAt: "", updatedAt: Date.now()
+    });
+    if(!visitOn(clientId, newDate)){
+      state.visits.push({
+        id: uid("v"), clientId: clientId, date: newDate,
+        hours: c.hours, amount: (Number(c.hours)||0) * (Number(c.rate)||0),
+        status: "scheduled", crew: me(), invoiceNo: "", invoiced: false,
+        paid: false, paidAt: "", updatedAt: Date.now()
+      });
+    }
+  }
+  scheduleSave();
+  render();
+}
+function addNote(clientId, visitId, text, photoId){
+  text = String(text || "").trim();
+  photoId = photoId || "";
+  if(!text && !photoId) return null;
+  var n = {
+    id: uid("n"), clientId: clientId, visitId: visitId || "",
+    by: me(), text: text, photoId: photoId, at: Date.now(), updatedAt: 0
+  };
+  state.notes.push(n);
+  touch(n, "notes");
+  scheduleSave();
+  return n;
+}
+function patchNote(id, text){
+  var n = byId("notes", id);
+  if(!n) return;
+  n.text = String(text || "").trim();
+  touch(n, "notes");
+  scheduleSave();
+}
+function removeNote(id){
+  var n = byId("notes", id);
+  if(!n) return;
+  n.deleted = true;
+  touch(n, "notes");
+  scheduleSave();
+  render();
+}
+function toggleOpen(key){
+  ui.open[key] = !ui.open[key];
+  saveUI();
+  render();
+}
+function setMe(name){
+  ui.me = name;
+  saveUI();
+  render();
+}
+
+/* ============================ views ============================ */
+function whoChip(){
+  var el = document.getElementById("who");
+  if(!ui.me){ el.hidden = true; return; }
+  el.hidden = false;
+  el.innerHTML = whoDot(ui.me) + esc(ui.me);
+}
+
+function idbar(){
+  if(ui.me) return "";
+  return '<div class="idbar">' +
+    '<p><b>Who’s using this phone?</b> It gets put against your notes and the jobs you tick off.</p>' +
+    '<button class="btn" data-act="setme" data-name="Owner">Owner</button>' +
+    '<button class="btn" data-act="setme" data-name="Teammate">Teammate</button>' +
+  '</div>';
+}
+
+function pulse(){
+  var w = weekStart(today());
+  var ws = ymd(w), we = ymd(addDays(w, 6));
+  var wk = doneVisits().filter(function(v){ return v.date >= ws && v.date <= we; });
+  var owed = unpaid();
+  var paidThisWeek = paidBetween(ws, we);
+  var chase = needsInvoice();
+
+  return '' +
+    '<div class="tile">' +
+      '<span class="k">Week ' + weekNoOf(today()) + ' logged</span>' +
+      '<span class="v">' + money(sum(wk, function(v){return v.amount;})) + '</span>' +
+      '<span class="s">' + hrs(sum(wk, function(v){return v.hours;})) + ' · ' +
+        wk.length + ' visit' + (wk.length===1?"":"s") + '</span>' +
+    '</div>' +
+    '<div class="tile' + (owed.length ? ' warn' : '') + '">' +
+      '<span class="k">Awaiting payment</span>' +
+      '<span class="v">' + money(sum(owed, function(v){return v.amount;})) + '</span>' +
+      '<span class="s">' + owed.length + ' job' + (owed.length===1?"":"s") +
+        (chase.length ? ' · ' + chase.length + ' to invoice' : '') + '</span>' +
+    '</div>' +
+    '<div class="tile' + (paidThisWeek.length ? ' go' : '') + '">' +
+      '<span class="k">Paid this week</span>' +
+      '<span class="v">' + money(sum(paidThisWeek, function(v){return v.amount;})) + '</span>' +
+      '<span class="s">' + (paidThisWeek.length
+        ? paidThisWeek.length + ' payment' + (paidThisWeek.length===1?"":"s") + ' in'
+        : 'nothing in yet') + '</span>' +
+    '</div>';
+}
+
+function weekStrip(){
+  var start = weekStart(today());
+  var todayS = ymd(today());
+  var cells = "";
+
+  for(var i=0;i<7;i++){
+    var d = addDays(start, i), ds = ymd(d);
+    var dots = "";
+    for(var j=0;j<state.clients.length;j++){
+      var c = state.clients[j];
+      if(c.deleted) continue;
+      var v = visitOn(c.id, ds);
+      if(!dueOn(c, d, v)) continue;
+      dots += '<span class="dot' + (v && v.status === "done" ? " done" : "") + '"></span>';
+    }
+    var cls = ds === todayS ? " now" : (ds < todayS ? " past" : "");
+    cells += '<div class="wday' + cls + '">' +
+      '<span class="d">' + DAYS[d.getDay()] + '</span>' +
+      '<span class="n">' + d.getDate() + '</span>' +
+      '<span class="dots">' + dots + '</span>' +
+    '</div>';
+  }
+  return '<div class="weekstrip">' + cells + '</div>';
+}
+
+function thread(clientId, visitId, emptyText){
+  var list = visitId ? notesForVisit(visitId) : notesForClient(clientId);
+  var key = "d:" + (visitId || clientId);
+  var draft = ui.draft[key] || "";
+  var pending = pendingPhoto[key];
+
+  var items = list.map(function(n){
+    var editing = !!ui.open["n:" + n.id];
+    return '<div class="note-item">' +
+      '<div class="note-head">' +
+        whoDot(n.by) +
+        '<span class="note-who">' + esc(n.by) + '</span>' +
+        '<span class="note-when">' + esc(ago(n.at)) + '</span>' +
+        '<span class="note-act">' +
+          '<button data-act="notetoggle" data-id="' + n.id + '">' + (editing ? "cancel" : "edit") + '</button>' +
+          '<button data-act="notedel" data-id="' + n.id + '">delete</button>' +
+        '</span>' +
+      '</div>' +
+      (editing
+        ? '<div class="composer"><textarea data-act="noteedit" data-id="' + n.id + '">' + esc(n.text) + '</textarea>' +
+            '<div class="send"><button class="btn sm go" data-act="notesave" data-id="' + n.id + '">Save</button></div></div>'
+        : (n.text ? '<div class="note-body">' + esc(n.text) + '</div>' : '')) +
+      (n.photoId && !editing
+        ? '<a class="note-photo" href="/api/photo/' + esc(n.photoId) + '" target="_blank" rel="noopener">' +
+            '<img src="/api/photo/' + esc(n.photoId) + '" alt="Photo attached to this note" loading="lazy"></a>'
+        : '') +
+    '</div>';
+  }).join("");
+
+  return '<div class="threadwrap">' +
+    '<span class="lbl">Notes</span>' +
+    '<div class="thread">' +
+      (items || '<div class="thread-empty">' + esc(emptyText || "Nothing noted yet.") + '</div>') +
+    '</div>' +
+    '<div class="composer">' +
+      '<textarea placeholder="What got done, anything new, anything to bring next time…" ' +
+        'data-act="draft" data-key="' + esc(key) + '">' + esc(draft) + '</textarea>' +
+      (PHOTOS_ENABLED ?
+        '<div class="photopick">' +
+          '<input type="file" accept="image/*" capture="environment" id="photo-' + esc(key) + '" ' +
+            'data-act="photopick" data-key="' + esc(key) + '">' +
+          '<label class="btn sm" for="photo-' + esc(key) + '">' + (pending ? "Change photo" : "+ Photo") + '</label>' +
+          (pending
+            ? '<img class="photo-preview" src="' + pending.previewUrl + '" alt="">' +
+              '<button type="button" class="btn sm link" data-act="photoclear" data-key="' + esc(key) + '">Remove photo</button>'
+            : '') +
+        '</div>' : '') +
+      '<div class="send">' +
+        '<span class="hint">Saved as ' + esc(me()) + '</span>' +
+        '<button class="btn sm go" data-act="noteadd" data-client="' + esc(clientId) + '" ' +
+          'data-visit="' + esc(visitId || "") + '" data-key="' + esc(key) + '">Add note</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function visitEditor(v){
+  var c = client(v.clientId);
+  var next = state.settings.nextInvoiceNo || 1;
+  var wants = wantsInvoice(c) || !!v.invoiceNo;
+
+  return '' +
+  '<div class="form">' +
+    '<div class="row">' +
+      '<div class="f"><label>Date of this visit</label>' +
+        '<input type="date" value="' + esc(v.date) + '" data-act="vfield" data-id="' + v.id + '" data-key="date">' +
+      '</div>' +
+      '<div class="f"><label>Hours actually worked</label>' +
+        '<input type="number" step="0.25" min="0" value="' + esc(v.hours) + '" data-act="vfield" data-id="' + v.id + '" data-key="hours">' +
+        '<div class="quickhour"><button class="btn sm" data-act="hourstep" data-id="' + v.id + '" data-delta="-0.25" aria-label="Subtract 15 minutes">- 15 min</button>' +
+        '<button class="btn sm" data-act="hourstep" data-id="' + v.id + '" data-delta="0.25" aria-label="Add 15 minutes">+ 15 min</button></div>' +
+      '</div>' +
+      '<div class="f"><label>Amount</label>' +
+        '<input type="number" step="0.01" min="0" value="' + esc(v.amount) + '" data-act="vfield" data-id="' + v.id + '" data-key="amount">' +
+      '</div>' +
+      '<div class="f"><label>Who went</label>' +
+        '<select data-act="vfield" data-id="' + v.id + '" data-key="crew">' +
+          CREW.map(function(o){
+            return '<option' + (v.crew === o ? " selected" : "") + '>' + o + '</option>';
+          }).join("") +
+        '</select>' +
+      '</div>' +
+    '</div>' +
+    (wants ?
+      '<div class="row">' +
+        '<div class="f"><label>Invoice no.</label>' +
+          '<input type="text" inputmode="numeric" placeholder="next is ' + String(next).padStart(4,"0") + '" value="' + esc(v.invoiceNo) + '" data-act="vfield" data-id="' + v.id + '" data-key="invoiceNo">' +
+        '</div>' +
+      '</div>' : '') +
+    '<div class="checks">' +
+      (wants ? '<label class="chk"><input type="checkbox" data-act="vcheck" data-id="' + v.id + '" data-key="invoiced"' + (v.invoiced?" checked":"") + '> Invoice sent</label>' : '') +
+      '<label class="chk"><input type="checkbox" data-act="vcheck" data-id="' + v.id + '" data-key="paid"' + (v.paid?" checked":"") + '> Paid' +
+        (v.paid && v.paidAt ? ' <span class="mono" style="color:var(--silver)">' + fmtDate(v.paidAt) + '</span>' : '') + '</label>' +
+      '<button class="btn link" data-act="undo" data-id="' + v.id + '">Undo this job</button>' +
+    '</div>' +
+    (wantsInvoice(c) ? '' : '<p class="note" style="margin:0">' + esc(c ? c.name.split(" ")[0] : "This client") +
+      ' pays without an invoice, so there is nothing to send — just tick Paid when the money lands.</p>') +
+    thread(v.clientId, v.id, "No notes on this visit yet.") +
+    (c && c.flag ? '<div class="flag"><b>Heads up:</b> ' + esc(c.flag) + '</div>' : '') +
+  '</div>';
+}
+
+function jobCard(row){
+  var c = row.client, v = row.visit;
+  var rate = money((Number(c.hours)||0) * (Number(c.rate)||0));
+
+  if(v && v.status === "done"){
+    var key = "v:" + v.id;
+    var open = !!ui.open[key];
+    var count = notesForVisit(v.id).length;
+    var st = v.paid ? '<span class="pill done">paid</span>'
+           : (wantsInvoice(c) && !v.invoiced) ? '<span class="pill due">to invoice</span>'
+           : '<span class="pill owed">awaiting payment</span>';
+
+    return '<article class="card done">' +
+      '<div class="card-top">' + avatar(c.name) +
+        '<h3>' + esc(c.name) + '</h3>' + st +
+      '</div>' +
+      '<p class="meta"><b>Done</b> · ' + hrs(v.hours) + ' · ' + esc(v.crew) + ' · ' + money(v.amount) +
+        (v.invoiceNo ? ' · <span class="mono">INV ' + esc(v.invoiceNo) + '</span>' : '') + '</p>' +
+      '<div class="acts"><button class="btn sm" data-act="toggle" data-key="' + esc(key) + '">' +
+        (open ? "Close" : "Details &amp; notes" + (count ? " (" + count + ")" : "")) + '</button></div>' +
+      (open ? visitEditor(v) : '') +
+    '</article>';
+  }
+
+  if(v && v.status === "skipped"){
+    return '<article class="card">' +
+      '<div class="card-top">' + avatar(c.name) +
+        '<h3>' + esc(c.name) + '</h3><span class="pill flat">skipped</span></div>' +
+      '<div class="acts"><button class="btn sm" data-act="undo" data-id="' + v.id + '">Put back</button></div>' +
+    '</article>';
+  }
+
+  return '<article class="card">' +
+    '<div class="card-top">' + avatar(c.name) +
+      '<h3>' + esc(c.name) + '</h3>' +
+      (row.oneOff ? '<span class="pill flat">one-off</span>' : '') +
+      '<span class="amt">' + rate + '</span>' +
+    '</div>' +
+    '<p class="meta">' + esc(c.suburb) + ' · ' + esc(c.service) + ' · ' + hrs(c.hours) + ' booked</p>' +
+    (c.address ? '<p class="meta"><b>Address:</b> ' + esc(c.address) + '</p>' : '') +
+    (c.window ? '<p class="meta">' + esc(c.window) + '</p>' : '') +
+    (c.flag ? '<div class="flag"><b>Heads up:</b> ' + esc(c.flag) + '</div>' : '') +
+    '<div class="acts">' +
+      '<button class="btn go wide" data-act="done" data-client="' + c.id + '" data-date="' + row.date + '">Mark done</button>' +
+      (row.oneOff && v
+        ? '<button class="btn" data-act="undo" data-id="' + v.id + '">Cancel</button>'
+        : '<button class="btn" data-act="skip" data-client="' + c.id + '" data-date="' + row.date + '">Skip</button>') +
+    '</div>' +
+    '<div class="row" style="margin-top:9px">' +
+      '<div class="f"><label>Move to a different date</label>' +
+        '<input type="date" min="' + ymd(today()) + '" data-act="movepick" data-client="' + c.id + '" data-old="' + row.date + '"></div>' +
+    '</div>' +
+  '</article>';
+}
+
+function viewToday(){
+  var rows = upcoming(today(), 14);
+  var todayS = ymd(today());
+  var html = '<div class="page-intro"><h1>Your run sheet</h1><p>What is coming up, what is done, and what needs a follow-up.</p></div>' +
+    '<div class="quicklinks">' +
+      '<button class="btn go" data-act="newclientquick">+ New client</button>' +
+      '<button class="btn" data-act="nav" data-tab="hours">View hours worked</button>' +
+      '<button class="btn" data-act="nav" data-tab="money">Check payments</button>' +
+    '</div>' + weekStrip();
+
+  if(!rows.length){
+    html += '<div class="empty">No visits scheduled in the next fortnight.<br>Set next-visit dates on the Clients tab and they will appear here.</div>';
+  }else{
+    var byDate = {};
+    rows.forEach(function(r){ (byDate[r.date] = byDate[r.date] || []).push(r); });
+    Object.keys(byDate).sort().forEach(function(d){
+      var list = byDate[d];
+      var owing = list.filter(function(r){ return !r.visit; }).length;
+      html += '<div class="dayrule' + (d === todayS ? " now" : "") + '">' +
+        '<h2>' + fmtDate(d) + " · " + relDay(d) + '</h2><div class="bar"></div>' +
+        '<span class="cnt">' + (owing ? owing + " to do" : "all done") + '</span></div>';
+      list.forEach(function(r){ html += jobCard(r); });
+    });
+  }
+
+  var nd = needsDate();
+  if(nd.length){
+    html += '<div class="sechead"><h2>Fortnightly clients without a next date</h2><div class="bar"></div></div>';
+    html += '<p class="note">These are fortnightly, so the app can’t work out which week is theirs until you log one visit date. Set the date of the last visit and the run sheet fills itself in from there.</p>';
+    nd.forEach(function(c){
+      html += '<article class="card">' +
+        '<div class="card-top">' + avatar(c.name) +
+          '<h3>' + esc(c.name) + '</h3><span class="pill due">needs a date</span></div>' +
+        '<p class="meta">' + esc(c.suburb) + ' · ' + esc(c.service) + ' · ' + esc(c.window) + '</p>' +
+        '<div class="form"><div class="row"><div class="f">' +
+          '<label>Date of the last visit</label>' +
+          '<input type="date" value="" data-act="anchor" data-id="' + c.id + '">' +
+        '</div></div></div>' +
+      '</article>';
+    });
+  }
+  return html;
+}
+
+function newClientForm(){
+  if(!ui.open["newclient"]){
+    return '<div class="acts" style="margin:0 0 4px">' +
+      '<button class="btn go" data-act="toggle" data-key="newclient">+ Add a new client</button>' +
+    '</div>';
+  }
+  var anchorPrefill = ui.newClientAnchor || "";
+  return '<article class="card" id="new-client-form">' +
+    '<h3 style="margin-bottom:11px">New client</h3>' +
+    '<div class="form">' +
+      '<div class="row">' +
+        '<div class="f"><label>Name</label><input type="text" id="nc-name" placeholder="Full name"></div>' +
+        '<div class="f"><label>Phone</label><input type="tel" id="nc-phone"></div>' +
+      '</div>' +
+      '<div class="row">' +
+        '<div class="f"><label>Email</label><input type="email" id="nc-email"></div>' +
+        '<div class="f"><label>Suburb</label><input type="text" id="nc-suburb"></div>' +
+      '</div>' +
+      '<div class="f"><label>Address</label><input type="text" id="nc-address"></div>' +
+      '<div class="f"><label>Service</label><input type="text" id="nc-service" placeholder="e.g. Weekly Home Assistant Match"></div>' +
+      '<div class="row">' +
+        '<div class="f"><label>Job #</label><input type="text" id="nc-jobno" placeholder="Job number"></div>' +
+        '<div class="f"><label>Usual crew</label><select id="nc-crew">' +
+          CREW.map(function(o){ return '<option' + (o === 'Teammate' ? ' selected' : '') + '>' + o + '</option>'; }).join('') +
+        '</select></div>' +
+      '</div>' +
+      '<div class="row">' +
+        '<div class="f"><label>Hours per visit</label><input type="number" step="0.25" min="0" id="nc-hours"></div>' +
+        '<div class="f"><label>Rate per hour</label><input type="number" step="0.01" min="0" id="nc-rate"></div>' +
+        '<div class="f"><label>Plan</label><select id="nc-plan">' +
+          '<option value="weekly" selected>Weekly</option>' +
+          '<option value="fortnightly">Fortnightly</option>' +
+        '</select></div>' +
+      '</div>' +
+      '<div class="f"><label>Day(s) of the week</label><div class="checks">' +
+        DAYS.map(function(d){ return '<label class="chk"><input type="checkbox" data-day="' + d + '"> ' + d + '</label>'; }).join("") +
+      '</div></div>' +
+      '<div class="hours-stat" id="nc-preview" aria-live="polite"><b>$0 / week</b><span>Booked weekly total from these terms</span></div>' +
+      '<div class="row">' +
+        '<div class="f"><label>First visit date</label><input type="date" id="nc-anchor" value="' + esc(anchorPrefill) + '"></div>' +
+        '<div class="f"><label>Invoicing</label><select id="nc-invoice">' +
+          '<option value="no" selected>Pays without one</option>' +
+          '<option value="yes">Send an invoice</option>' +
+        '</select></div>' +
+      '</div>' +
+      '<div class="acts">' +
+        '<button class="btn go wide" data-act="createclient">Add client</button>' +
+        '<button class="btn" data-act="toggle" data-key="newclient">Cancel</button>' +
+      '</div>' +
+    '</div>' +
+  '</article>';
+}
+
+function refreshNewClientPreview(){
+  var box = document.getElementById("nc-preview");
+  if(!box) return;
+  var hours = Number(document.getElementById("nc-hours").value) || 0;
+  var rate = Number(document.getElementById("nc-rate").value) || 0;
+  var days = document.querySelectorAll('#new-client-form [data-day]:checked').length;
+  var fortnightly = document.getElementById("nc-plan").value === "fortnightly";
+  box.querySelector("b").textContent = money(hours * rate * days / (fortnightly ? 2 : 1)) + " / week";
+}
+
+function clientCard(c){
+    var key = "c:" + c.id;
+    var open = !!ui.open[key];
+    var owed = state.visits.filter(function(v){
+      return !v.deleted && v.clientId === c.id && v.status === "done" && !v.paid;
+    });
+    var noteCount = notesForClient(c.id).length;
+    var html = "";
+
+    html += '<article class="card client-card" data-client-id="' + esc(c.id) + '" data-status="' + esc(c.status) + '">' +
+      '<div class="card-top">' +
+        '<h3><button type="button" class="client-heading-button" data-act="toggle" data-key="' + esc(key) + '" aria-expanded="' + open + '" aria-label="' + (open ? 'Minimise' : 'Expand') + ' details for ' + esc(c.name) + '">' +
+          avatar(c.name) + '<span class="client-name-text">' + esc(c.name) + '</span>' +
+          '<span class="client-expand-icon" aria-hidden="true">' + (open ? '&minus;' : '+') + '</span>' +
+        '</button></h3>' +
+        '<span class="amt">' + money((Number(c.hours)||0)*(Number(c.rate)||0)) + '</span>' +
+      '</div>' +
+      '<p class="meta">' + esc(c.suburb) + ' · ' + esc(c.service) + ' · ' + hrs(c.hours) +
+        ' at ' + money(c.rate) + '/hr' + (c.jobNo ? ' · <span class="mono">' + esc(c.jobNo) + '</span>' : '') + '</p>' +
+      (owed.length || !wantsInvoice(c) ? '<p class="meta">' +
+        (owed.length ? '<span class="pill owed">' + money(sum(owed,function(v){return v.amount;})) + ' outstanding</span> ' : '') +
+        (wantsInvoice(c) ? '' : '<span class="pill flat">no invoice</span>') + '</p>' : '') +
+      (c.flag ? '<div class="flag"><b>Heads up:</b> ' + esc(c.flag) + '</div>' : '') +
+      '<div class="acts">' +
+        '<button class="btn sm edit" type="button" data-act="editclient" data-id="' + esc(c.id) + '" aria-expanded="' + open + '">Edit client</button>' +
+        (noteCount ? '<span class="pill flat">' + noteCount + ' note' + (noteCount === 1 ? '' : 's') + '</span>' : '') +
+        '<a class="btn sm" href="tel:' + esc(String(c.phone).replace(/\s/g,"")) + '">Call</a>' +
+        '<a class="btn sm" href="sms:' + esc(String(c.phone).replace(/\s/g,"")) + '">Text</a>' +
+        (c.status === "ended"
+          ? '<button class="btn sm" data-act="reactivate" data-id="' + c.id + '">Reactivate</button>'
+          : '<button class="btn sm" data-act="removeclient" data-id="' + c.id + '">Remove</button>') +
+      '</div>';
+
+    if(open){
+      html += '<div class="brief">' +
+        '<div class="row">' +
+          '<div class="f"><label>Phone</label><input type="tel" value="' + esc(c.phone) + '" data-act="cfield" data-id="' + c.id + '" data-key="phone"></div>' +
+          '<div class="f"><label>Email</label><input type="email" value="' + esc(c.email) + '" data-act="cfield" data-id="' + c.id + '" data-key="email"></div>' +
+        '</div>' +
+        '<div class="f"><label>Bills to</label><input type="text" value="' + esc(c.billTo) + '" data-act="cfield" data-id="' + c.id + '" data-key="billTo"></div>' +
+        '<div class="f"><label>Address</label><input type="text" value="' + esc(c.address) + '" data-act="cfield" data-id="' + c.id + '" data-key="address"></div>' +
+        '<div class="row">' +
+          '<div class="f"><label>Suburb</label><input type="text" value="' + esc(c.suburb) + '" data-act="cfield" data-id="' + c.id + '" data-key="suburb"></div>' +
+          '<div class="f"><label>Service</label><input type="text" value="' + esc(c.service) + '" data-act="cfield" data-id="' + c.id + '" data-key="service"></div>' +
+        '</div>' +
+        '<div class="f"><label>Usual day/time (in words)</label><input type="text" value="' + esc(c.window) + '" data-act="cfield" data-id="' + c.id + '" data-key="window"></div>' +
+        '<div class="f"><label>Day(s) of the week</label><div class="checks">' +
+          DAYS.map(function(d){
+            var checked = (c.days||[]).indexOf(d) !== -1;
+            return '<label class="chk"><input type="checkbox" data-act="daytoggle" data-client="' + c.id + '" data-day="' + d + '"' + (checked?" checked":"") + '> ' + d + '</label>';
+          }).join("") +
+        '</div></div>' +
+        '<div class="row">' +
+          '<div class="f"><label>Hours per visit</label><input type="number" step="0.25" min="0" value="' + esc(c.hours) + '" data-act="cfield" data-id="' + c.id + '" data-key="hours"></div>' +
+          '<div class="f"><label>Rate per hour</label><input type="number" step="0.01" min="0" value="' + esc(c.rate) + '" data-act="cfield" data-id="' + c.id + '" data-key="rate"></div>' +
+          '<div class="f"><label>Plan</label><select data-act="cfield" data-id="' + c.id + '" data-key="plan">' +
+            '<option value="weekly"' + (c.plan!=="fortnightly"?" selected":"") + '>Weekly</option>' +
+            '<option value="fortnightly"' + (c.plan==="fortnightly"?" selected":"") + '>Fortnightly</option>' +
+          '</select></div>' +
+        '</div>' +
+        '<div class="row">' +
+          '<div class="f"><label>Usual crew</label><select data-act="cfield" data-id="' + c.id + '" data-key="crew">' +
+            CREW.map(function(o){ return '<option' + (c.crew === o ? " selected" : "") + '>' + o + '</option>'; }).join("") +
+          '</select></div>' +
+          '<div class="f"><label>Job #</label><input type="text" placeholder="Job number" value="' + esc(c.jobNo) + '" data-act="cfield" data-id="' + c.id + '" data-key="jobNo"></div>' +
+        '</div>' +
+        '<div class="f"><label>Access</label><textarea data-act="cfield" data-id="' + c.id + '" data-key="access">' + esc(c.access) + '</textarea></div>' +
+        '<div class="f"><label>Pets</label><input type="text" value="' + esc(c.pets) + '" data-act="cfield" data-id="' + c.id + '" data-key="pets"></div>' +
+        '<div class="f"><label>Priorities</label><textarea data-act="cfield" data-id="' + c.id + '" data-key="priorities">' + esc(c.priorities) + '</textarea></div>' +
+        '<div class="f"><label>The home</label><textarea data-act="cfield" data-id="' + c.id + '" data-key="home">' + esc(c.home) + '</textarea></div>' +
+        '<div class="f"><label>Heads up flag</label><textarea data-act="cfield" data-id="' + c.id + '" data-key="flag">' + esc(c.flag) + '</textarea></div>' +
+        thread(c.id, "", "Nothing noted for " + esc(c.name.split(" ")[0]) + " yet.") +
+        '<div class="f"><label>Standing brief — the things that are always true</label>' +
+          '<textarea data-act="cfield" data-id="' + c.id + '" data-key="notes">' + esc(c.notes) + '</textarea></div>' +
+        '<div class="row">' +
+          '<div class="f"><label>Last visit (sets the pattern)</label>' +
+            '<input type="date" value="' + esc(c.anchor || "") + '" data-act="anchor" data-id="' + c.id + '"></div>' +
+          '<div class="f"><label>Status</label>' +
+            '<select data-act="cfield" data-id="' + c.id + '" data-key="status">' +
+              ["active","paused","ended"].map(function(o){
+                return '<option value="' + o + '"' + (c.status===o?" selected":"") + '>' + o + '</option>';
+              }).join("") +
+            '</select></div>' +
+          '<div class="f"><label>Invoicing</label>' +
+            '<select data-act="cfield" data-id="' + c.id + '" data-key="wantsInvoice">' +
+              '<option value="yes"' + (wantsInvoice(c)?" selected":"") + '>Send an invoice</option>' +
+              '<option value="no"' + (wantsInvoice(c)?"":" selected") + '>Pays without one</option>' +
+            '</select></div>' +
+        '</div>' +
+      '</div>';
+    }
+    html += '</article>';
+    return html;
+}
+
+function clientTools(list){
+  if(!list.length) return "";
+  var openCount = list.filter(function(c){ return !!ui.open["c:" + c.id]; }).length;
+  return '<div class="client-tools" role="group" aria-label="Client detail controls">' +
+    '<span class="client-tools-label">' + openCount + ' of ' + list.length + ' open</span>' +
+    '<button class="btn sm" type="button" data-act="clientall" data-open="true"' + (openCount === list.length ? ' disabled' : '') + '>Expand all</button>' +
+    '<button class="btn sm" type="button" data-act="clientall" data-open="false"' + (openCount ? '' : ' disabled') + '>Minimise all</button>' +
+  '</div>';
+}
+
+function viewClients(){
+  var order = {active:0, paused:1};
+  var query = String(ui.clientSearch || "").trim().toLowerCase();
+  var list = state.clients.filter(function(c){
+      return !c.deleted && c.status !== "ended" &&
+        (!query || [c.name,c.suburb,c.address,c.service,c.jobNo].join(" ").toLowerCase().indexOf(query) !== -1);
+    })
+    .sort(function(a,b){
+      return (order[a.status]||0) - (order[b.status]||0) || a.name.localeCompare(b.name);
+    });
+  var html = '<div class="page-intro"><h1>Clients</h1><p>Search the working list, then open a brief to edit every detail.</p></div>' +
+    '<input class="searchbox" type="search" id="client-search" placeholder="Search name, suburb, service or job number" aria-label="Search clients" value="' + esc(ui.clientSearch || "") + '">' +
+    '<div class="quicklinks"><button class="btn" data-act="nav" data-tab="former">Former clients</button></div>' +
+    clientTools(list) +
+    newClientForm();
+  var lastStatus = null;
+
+  if(!list.length){
+    html += '<div class="empty">' + (query ? 'No clients match that search.' : 'No active clients yet. Add one above.') + '</div>';
+    return html;
+  }
+
+  list.forEach(function(c){
+    if(c.status !== lastStatus){
+      lastStatus = c.status;
+      var label = c.status === "active" ? "Active clients" : "Paused";
+      html += '<div class="sechead"><h2>' + label + '</h2><div class="bar"></div></div>';
+    }
+    html += clientCard(c);
+  });
+  return html;
+}
+
+function viewFormer(){
+  var list = state.clients.filter(function(c){ return !c.deleted && c.status === "ended"; })
+    .sort(function(a,b){ return a.name.localeCompare(b.name); });
+
+  if(!list.length){
+    return '<div class="empty">No former clients. Anyone removed from Active clients shows up here — their history, notes and invoices stay intact, and Reactivate brings them straight back.</div>';
+  }
+
+  var html = '<div class="sechead"><h2>Former clients</h2><div class="bar"></div></div>' +
+    '<p class="note">Kept here rather than on the Clients tab so a long list of past clients doesn’t bury who you’re actually working for right now.</p>' +
+    clientTools(list);
+  list.forEach(function(c){ html += clientCard(c); });
+  return html;
+}
+
+/* Actual hours come from completed visits; booking terms stay separate. */
+function viewHours(){
+  var range = ui.hoursRange || "all";
+  var from = range === "all" ? "" : ymd(addDays(today(), 1 - Number(range)));
+  var visits = doneVisits().filter(function(v){ return !from || v.date >= from; })
+    .sort(function(a,b){ return b.date.localeCompare(a.date); });
+  var total = sum(visits,function(v){ return v.hours; });
+  var byCrew = {};
+  var rows = {};
+  visits.forEach(function(v){
+    byCrew[v.crew || "Unassigned"] = (byCrew[v.crew || "Unassigned"] || 0) + (Number(v.hours)||0);
+    (rows[v.clientId] = rows[v.clientId] || []).push(v);
+  });
+  var ids = Object.keys(rows).sort(function(a,b){
+    return sum(rows[b],function(v){return v.hours;}) - sum(rows[a],function(v){return v.hours;});
+  });
+  var max = ids.length ? sum(rows[ids[0]],function(v){return v.hours;}) : 0;
+  var html = '<div class="page-intro"><h1>Hours worked</h1><p>Actual completed visits, including former clients. Tap a client to see every logged visit.</p></div>' +
+    '<div class="filterchips" aria-label="Hours period">' +
+      [["28","4 weeks"],["84","12 weeks"],["all","All time"]].map(function(p){
+        return '<button class="btn sm" data-act="hoursrange" data-range="' + p[0] + '" aria-pressed="' + (range === p[0]) + '">' + p[1] + '</button>';
+      }).join("") + '</div>' +
+    '<div class="hours-summary">' +
+      '<div class="hours-stat"><b>' + hrs(total) + '</b><span>Worked in this period</span></div>' +
+      '<div class="hours-stat"><b>' + visits.length + '</b><span>Completed visits</span></div>' +
+      '<div class="hours-stat"><b>' + ids.length + '</b><span>Clients served</span></div>' +
+    '</div>';
+  if(!visits.length) return html + '<div class="empty">No completed visits in this period yet.</div>';
+  html += '<div class="sechead"><h2>By client</h2><div class="bar"></div></div>';
+  ids.forEach(function(id){
+    var c = client(id) || {name:"(former record)"};
+    var list = rows[id], hours = sum(list,function(v){return v.hours;});
+    var open = !!ui.open["h:" + id];
+    html += '<article class="card"><div class="hours-row">' +
+      '<div><h3>' + esc(c.name) + '</h3><span class="meta">' + list.length + ' visit' + (list.length===1?'':'s') + '</span></div>' +
+      '<div class="hours-track" role="img" aria-label="' + esc(c.name) + ': ' + hrs(hours) + '"><div class="hours-fill" style="width:' + (max ? Math.max(2,100*hours/max) : 0) + '%"></div></div>' +
+      '<button class="btn sm" data-act="toggle" data-key="h:' + esc(id) + '" aria-expanded="' + open + '">' + hrs(hours) + ' ' + (open?'hide':'details') + '</button>' +
+      '</div>' + (open ? '<div class="hours-detail">' + list.map(function(v){
+        return '<div class="hours-visit"><span>' + fmtDateLong(v.date) + ' / ' + esc(v.crew || 'Unassigned') + '</span><span>' + hrs(v.hours) + ' / ' + money(v.amount) + '</span></div>';
+      }).join("") + '</div>' : '') + '</article>';
+  });
+  html += '<div class="sechead"><h2>By crew</h2><div class="bar"></div></div>' +
+    Object.keys(byCrew).sort().map(function(crew){
+      return '<div class="hours-visit"><span>' + esc(crew) + '</span><span>' + hrs(byCrew[crew]) + '</span></div>';
+    }).join("") +
+    '<p class="note">A shared two-person visit is shown as one crew entry. The total counts the visit hours once, matching the Week report.</p>';
+  return html;
+}
+
+function viewMoney(){
+  var owed = unpaid().sort(function(a,b){ return a.date < b.date ? -1 : 1; });
+  var chase = needsInvoice();
+  var paid = doneVisits().filter(function(v){ return v.paid; })
+    .sort(function(a,b){ return (a.paidAt||a.date) > (b.paidAt||b.date) ? -1 : 1; }).slice(0,12);
+  var html = "";
+
+  html += '<div class="sechead"><h2>Waiting on payment</h2><div class="bar"></div></div>';
+  if(owed.length){
+    html += moneyTable(owed, "owed");
+    html += '<p class="note">' +
+      (chase.length
+        ? chase.length + ' of these still ' + (chase.length===1?'needs':'need') + ' an invoice sent — flagged in the table. '
+        : 'Every one of these has been invoiced, or is a client who pays without one. ') +
+      'Days run from the service date.</p>';
+  }else{
+    html += '<div class="empty">Nothing outstanding. Everyone has paid.</div>';
+  }
+
+  html += '<div class="sechead"><h2>Paid</h2><div class="bar"></div></div>';
+  html += paid.length ? moneyTable(paid, "paid") : '<div class="empty">No payments recorded yet.</div>';
+
+  html += weeklyTotalsTable();
+
+  html += '<p class="note">PayID ' + esc(state.settings.payid || "not set") + ' · ABN ' + esc(state.settings.abn || "not set") +
+          ' · next invoice number ' + String(state.settings.nextInvoiceNo).padStart(4,"0") + '</p>';
+  return html;
+}
+
+/* What a client is worth per week, from their booking terms rather than
+   what's actually been logged. A fortnightly visit only happens every
+   second week, so it counts as half its amount toward a weekly average —
+   the same way you'd average an irregular bill out over the year. */
+function weeklyEquivalent(c){
+  var perVisit = (Number(c.hours)||0) * (Number(c.rate)||0);
+  var visitsPerCycle = (c.days || []).length;
+  var perCycle = perVisit * visitsPerCycle;
+  return c.plan === "fortnightly" ? perCycle / 2 : perCycle;
+}
+
+function weeklyTotalsTable(){
+  var rows = state.clients.filter(function(c){ return !c.deleted && c.status === "active"; })
+    .map(function(c){ return {c: c, weekly: weeklyEquivalent(c)}; })
+    .sort(function(a,b){ return b.weekly - a.weekly; });
+
+  var html = '<div class="sechead"><h2>Weekly client total</h2><div class="bar"></div></div>';
+  if(!rows.length){
+    return html + '<div class="empty">No active clients yet.</div>';
+  }
+
+  var body = rows.map(function(r){
+    var c = r.c;
+    var visits = (c.days || []).length;
+    return '<tr><td>' + esc(c.name) + '<br><span class="mono" style="color:var(--silver)">' +
+        visits + ' visit' + (visits===1?"":"s") + ' ' + esc(c.plan) + '</span></td>' +
+      '<td class="n">' + money(r.weekly) + '</td></tr>';
+  }).join("");
+
+  html += '<div class="tablewrap"><table>' +
+    '<thead><tr><th>Client</th><th class="n">Per week</th></tr></thead>' +
+    '<tbody>' + body + '</tbody>' +
+    '<tfoot><tr><td>Total per week</td><td class="n">' + money(sum(rows, function(r){return r.weekly;})) + '</td></tr></tfoot>' +
+  '</table></div>' +
+  '<p class="note">Fortnightly clients are counted at half their per-visit amount, so this is the average you can expect week to week if everyone’s schedule runs as booked — not what any single week actually invoices.</p>';
+
+  return html;
+}
+
+function moneyTable(list, mode){
+  var owing = mode === "owed";
+  var cols = owing ? 6 : 5;
+
+  var rows = list.map(function(v){
+    var c = client(v.clientId) || {name:"(unknown)"};
+    var age = Math.max(0, daysBetween(parseYmd(v.date), today()));
+    var paperwork = v.invoiceNo ? '<span class="mono">INV ' + esc(v.invoiceNo) + '</span>'
+                  : !wantsInvoice(c) ? '<span class="pill flat">no invoice</span>'
+                  : v.invoiced ? '<span class="mono" style="color:var(--silver)">sent</span>'
+                  : '<span class="pill due">to invoice</span>';
+    var noteCount = notesForVisit(v.id).length;
+
+    return '<tr>' +
+      '<td>' + esc(c.name) + '<br><span class="mono" style="color:var(--silver)">' +
+        (owing ? fmtDate(v.date) : 'paid ' + fmtDate(v.paidAt || v.date)) + '</span></td>' +
+      '<td>' + paperwork + '</td>' +
+      (owing ? '<td class="n">' + (age > 13 ? '<span class="pill owed">' + age + ' d</span>' : age + " d") + '</td>' : '') +
+      '<td class="n">' + hrs(v.hours) + '</td>' +
+      '<td class="n">' + money(v.amount) + '</td>' +
+      '<td class="n"><button class="btn sm" data-act="toggle" data-key="v:' + v.id + '">' +
+        (ui.open["v:"+v.id] ? "close" : (noteCount ? "open (" + noteCount + ")" : "open")) + '</button></td>' +
+    '</tr>' +
+    (ui.open["v:"+v.id] ? '<tr><td colspan="' + cols + '">' + visitEditor(v) + '</td></tr>' : '');
+  }).join("");
+
+  return '<div class="tablewrap"><table>' +
+    '<thead><tr><th>Client</th><th>Invoice</th>' + (owing ? '<th class="n">Age</th>' : '') +
+      '<th class="n">Hours</th><th class="n">Amount</th><th class="n"></th></tr></thead>' +
+    '<tbody>' + rows + '</tbody>' +
+    '<tfoot><tr><td colspan="' + (owing?3:2) + '">Total</td>' +
+      '<td class="n">' + hrs(sum(list,function(v){return v.hours;})) + '</td>' +
+      '<td class="n">' + money(sum(list,function(v){return v.amount;})) + '</td><td></td></tr></tfoot>' +
+  '</table></div>';
+}
+
+function viewWeek(){
+  var off = Number(ui.weekOff || 0);
+  var ws = addDays(weekStart(today()), off * 7);
+  var we = addDays(ws, 6);
+  var a = ymd(ws), b = ymd(we);
+  var list = doneVisits().filter(function(v){ return v.date >= a && v.date <= b; });
+
+  var byClient = {};
+  list.forEach(function(v){ (byClient[v.clientId] = byClient[v.clientId] || []).push(v); });
+
+  var rows = Object.keys(byClient).map(function(cid){
+    var c = client(cid) || {name:"(unknown)", service:""};
+    var vs = byClient[cid];
+    return '<tr><td>' + esc(c.name) + '<br><span class="mono" style="color:var(--silver)">' + esc(c.service) + '</span></td>' +
+      '<td class="n">' + vs.length + '</td>' +
+      '<td class="n">' + hrs(sum(vs,function(v){return v.hours;})) + '</td>' +
+      '<td class="n">' + money(sum(vs,function(v){return v.amount;})) + '</td></tr>';
+  }).join("");
+
+  var html = '' +
+    '<div class="dayrule"><h2>Week ' + weekNoOf(ws) + ' · ' + fmtDate(a) + " to " + fmtDate(b) + '</h2><div class="bar"></div></div>' +
+    '<div class="acts" style="margin:0 0 12px">' +
+      '<button class="btn sm" data-act="week" data-off="' + (off-1) + '">‹ Previous</button>' +
+      '<button class="btn sm" data-act="week" data-off="0">This week</button>' +
+      '<button class="btn sm" data-act="week" data-off="' + (off+1) + '">Next ›</button>' +
+    '</div>';
+
+  if(!list.length){
+    html += '<div class="empty">Nothing logged for this week yet.</div>';
+  }else{
+    html += '<div class="tablewrap"><table>' +
+      '<thead><tr><th>Client</th><th class="n">Visits</th><th class="n">Hours</th><th class="n">Amount</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody>' +
+      '<tfoot><tr><td>Total</td><td class="n">' + list.length + '</td>' +
+        '<td class="n">' + hrs(sum(list,function(v){return v.hours;})) + '</td>' +
+        '<td class="n">' + money(sum(list,function(v){return v.amount;})) + '</td></tr></tfoot>' +
+    '</table></div>';
+    html += '<div class="acts"><button class="btn" data-act="copyweek" data-a="' + a + '" data-b="' + b + '">Copy summary for the crew report</button></div>';
+  }
+  html += '<p class="note">Weeks run Sunday to Saturday to match the crew report. Hours here are what was actually worked and logged, which is the figure to defend if the reported hours are ever queried.</p>';
+  return html;
+}
+
+function monthCells(monthStr){
+  var parts = monthStr.split("-").map(Number);
+  var first = new Date(parts[0], parts[1]-1, 1);
+  var daysInMonth = new Date(parts[0], parts[1], 0).getDate();
+  var cells = [];
+  for(var i=0;i<first.getDay();i++) cells.push(null);
+  for(var d=1; d<=daysInMonth; d++) cells.push(new Date(parts[0], parts[1]-1, d));
+  while(cells.length % 7) cells.push(null);
+  return cells;
+}
+
+function calDayPanel(ds){
+  var d = parseYmd(ds);
+  var rows = upcoming(d, 1);
+  var html = '<div class="sechead"><h2>' + fmtDateLong(ds) + '</h2><div class="bar"></div></div>';
+
+  if(!rows.length){
+    html += '<div class="empty">Nothing scheduled this day.</div>';
+  }else{
+    rows.forEach(function(r){ html += jobCard(r); });
+  }
+
+  var already = {};
+  rows.forEach(function(r){ already[r.client.id] = true; });
+  var pickable = state.clients.filter(function(c){
+    return !c.deleted && c.status === "active" && !already[c.id];
+  }).sort(function(a,b){ return a.name.localeCompare(b.name); });
+
+  html += '<div class="form">' +
+    '<div class="row">' +
+      '<div class="f"><label>Add an existing client to this day</label>' +
+        '<select id="cal-add-client"' + (pickable.length ? '' : ' disabled') + '>' +
+          (pickable.length
+            ? pickable.map(function(c){ return '<option value="' + c.id + '">' + esc(c.name) + '</option>'; }).join("")
+            : '<option>Everyone active is already on this day</option>') +
+        '</select>' +
+      '</div>' +
+    '</div>' +
+    '<div class="acts">' +
+      (pickable.length ? '<button class="btn go" data-act="scheduleone" data-date="' + ds + '">Add to this day</button>' : '') +
+      '<button class="btn" data-act="newclientfor" data-date="' + ds + '">+ New client starting this day</button>' +
+    '</div>' +
+  '</div>';
+
+  return html;
+}
+
+function viewCalendar(){
+  var monthStr = ui.calMonth || ymd(today()).slice(0,7);
+  var monthDate = parseYmd(monthStr + "-01");
+  var todayS = ymd(today());
+  var selected = ui.calDay || todayS;
+
+  var html = '<div class="dayrule"><h2>' + MONTHS[monthDate.getMonth()] + ' ' + monthDate.getFullYear() + '</h2><div class="bar"></div></div>' +
+    '<div class="acts" style="margin:0 0 12px">' +
+      '<button class="btn sm" data-act="calmonth" data-dir="-1">‹ Previous</button>' +
+      '<button class="btn sm" data-act="calmonth" data-dir="0">This month</button>' +
+      '<button class="btn sm" data-act="calmonth" data-dir="1">Next ›</button>' +
+    '</div>';
+
+  var dows = DAYS.map(function(d){ return '<div class="cal-dow">' + d + '</div>'; }).join("");
+
+  var cells = monthCells(monthStr).map(function(d){
+    if(!d) return '<div class="cal-cell empty"></div>';
+    var ds = ymd(d);
+    var due = [];
+    for(var j=0;j<state.clients.length;j++){
+      var c = state.clients[j];
+      if(c.deleted) continue;
+      var v = visitOn(c.id, ds);
+      if(!dueOn(c, d, v)) continue;
+      due.push({c:c, v:v});
+    }
+    var dots = due.slice(0,6).map(function(x){
+      var cls = x.v && x.v.status === "done" ? " done" : (x.v && x.v.status === "skipped" ? " skip" : "");
+      var style = cls ? "" : ' style="background:' + avatarInk(x.c.name) + '"';
+      return '<span class="cal-dot' + cls + '"' + style + '></span>';
+    }).join("");
+    var cls2 = (ds === todayS ? " today" : "") + (ds === selected ? " sel" : "") + (ds < todayS ? " past" : "");
+    return '<button type="button" class="cal-cell' + cls2 + '" data-act="calpick" data-date="' + ds + '">' +
+      '<span class="cal-n">' + d.getDate() + '</span>' +
+      '<span class="cal-dots">' + dots + '</span>' +
+    '</button>';
+  }).join("");
+
+  html += '<div class="calgrid"><div class="cal-dows">' + dows + '</div><div class="cal-cells">' + cells + '</div></div>';
+  html += calDayPanel(selected);
+  return html;
+}
+
+/* ============================ render ============================ */
+function render(){
+  whoChip();
+  document.getElementById("idbar").innerHTML = idbar();
+  document.getElementById("pulse").innerHTML = pulse();
+
+  var tabs = document.getElementById("tabs").children;
+  for(var i=0;i<tabs.length;i++){
+    tabs[i].setAttribute("aria-selected", tabs[i].dataset.tab === ui.tab ? "true" : "false");
+  }
+
+  var b = document.getElementById("banner");
+  b.innerHTML = offlineSince
+    ? '<div class="banner">No signal right now. Keep working — everything is saved on this phone and goes across as soon as you’re back online.</div>'
+    : "";
+
+  var v = document.getElementById("view");
+  v.innerHTML = ui.tab === "clients"  ? viewClients()
+              : ui.tab === "hours"    ? viewHours()
+              : ui.tab === "money"    ? viewMoney()
+              : ui.tab === "week"     ? viewWeek()
+              : ui.tab === "calendar" ? viewCalendar()
+              : ui.tab === "former"   ? viewFormer()
+              : viewToday();
+}
+
+/* ============================ events ============================ */
+document.getElementById("tabs").addEventListener("click", function(e){
+  var b = e.target.closest("button[data-tab]");
+  if(!b) return;
+  ui.tab = b.dataset.tab;
+  saveUI();
+  render();
+});
+
+document.getElementById("who").addEventListener("click", function(){
+  setMe(me() === "Owner" ? "Teammate" : "Owner");
+});
+
+document.addEventListener("click", function(e){
+  var el = e.target.closest("[data-act]");
+  if(!el) return;
+  var act = el.dataset.act;
+
+  if(act === "done"){ markDone(el.dataset.client, el.dataset.date); }
+  else if(act === "skip"){ markSkipped(el.dataset.client, el.dataset.date); }
+  else if(act === "undo"){ undoVisit(el.dataset.id); }
+  else if(act === "toggle"){ toggleOpen(el.dataset.key); }
+  else if(act === "clientall"){
+    var expand = el.dataset.open === "true";
+    document.querySelectorAll('#view .client-card[data-client-id]').forEach(function(card){
+      ui.open["c:" + card.dataset.clientId] = expand;
+    });
+    saveUI(); render();
+  }
+  else if(act === "editclient"){
+    ui.open["c:" + el.dataset.id] = true;
+    saveUI(); render();
+    var editCard = [].slice.call(document.querySelectorAll('#view .client-card[data-client-id]')).filter(function(card){
+      return card.dataset.clientId === el.dataset.id;
+    })[0];
+    var firstField = editCard && editCard.querySelector('[data-act="cfield"]');
+    if(firstField) firstField.focus();
+  }
+  else if(act === "hourstep"){
+    var worked = byId("visits", el.dataset.id);
+    if(worked){ patchVisit(worked.id, "hours", Math.max(0, Math.round(((Number(worked.hours)||0) + Number(el.dataset.delta)) * 4) / 4)); render(); }
+  }
+  else if(act === "hoursrange"){ ui.hoursRange = el.dataset.range; saveUI(); render(); }
+  else if(act === "nav"){ ui.tab = el.dataset.tab; saveUI(); render(); }
+  else if(act === "newclientquick"){
+    ui.tab = "clients"; ui.clientSearch = ""; ui.open["newclient"] = true; saveUI(); render();
+    var first = document.getElementById("nc-name"); if(first) first.focus();
+  }
+  else if(act === "week"){ ui.weekOff = Number(el.dataset.off); saveUI(); render(); }
+  else if(act === "copyweek"){ copyWeek(el.dataset.a, el.dataset.b, el); }
+  else if(act === "setme"){ setMe(el.dataset.name); }
+  else if(act === "removeclient"){
+    var rc = client(el.dataset.id);
+    if(rc && confirm("Move " + rc.name + " to former clients? Their history stays, and this can be undone any time with Reactivate.")){
+      patchClient(el.dataset.id, "status", "ended");
+      render();
+    }
+  }
+  else if(act === "reactivate"){ patchClient(el.dataset.id, "status", "active"); render(); }
+  else if(act === "createclient"){
+    var val = function(id){ var e = document.getElementById(id); return e ? e.value.trim() : ""; };
+    var days = [].slice.call(document.querySelectorAll('#new-client-form [data-day]:checked')).map(function(e){ return e.dataset.day; });
+    var name = val("nc-name");
+    if(!name){ alert("Give the client a name first."); return; }
+    if(!days.length){ alert("Pick at least one day of the week."); return; }
+    var c = createClient({
+      name: name, phone: val("nc-phone"), email: val("nc-email"), jobNo: val("nc-jobno"), crew: val("nc-crew"),
+      suburb: val("nc-suburb"), address: val("nc-address"), service: val("nc-service"),
+      hours: Number(val("nc-hours")) || 0, rate: Number(val("nc-rate")) || 0,
+      plan: val("nc-plan") || "weekly", days: days, anchor: val("nc-anchor") || null,
+      wantsInvoice: val("nc-invoice") === "yes"
+    });
+    ui.open["newclient"] = false;
+    ui.open["c:" + c.id] = true;
+    ui.clientSearch = "";
+    delete ui.newClientAnchor;
+    saveUI();
+    render();
+  }
+  else if(act === "calmonth"){
+    var base = ui.calMonth ? parseYmd(ui.calMonth + "-01") : new Date(today().getFullYear(), today().getMonth(), 1);
+    var dir = Number(el.dataset.dir);
+    base = dir === 0 ? new Date(today().getFullYear(), today().getMonth(), 1)
+                      : new Date(base.getFullYear(), base.getMonth() + dir, 1);
+    ui.calMonth = base.getFullYear() + "-" + String(base.getMonth()+1).padStart(2,"0");
+    saveUI();
+    render();
+  }
+  else if(act === "calpick"){ ui.calDay = el.dataset.date; saveUI(); render(); }
+  else if(act === "scheduleone"){
+    var sel = document.getElementById("cal-add-client");
+    if(sel && sel.value) scheduleOne(sel.value, el.dataset.date);
+  }
+  else if(act === "newclientfor"){
+    ui.tab = "clients";
+    ui.clientSearch = "";
+    ui.open["newclient"] = true;
+    ui.newClientAnchor = el.dataset.date;
+    saveUI();
+    render();
+  }
+  else if(act === "notetoggle"){ toggleOpen("n:" + el.dataset.id); }
+  else if(act === "notedel"){ removeNote(el.dataset.id); }
+  else if(act === "notesave"){
+    var box = document.querySelector('[data-act="noteedit"][data-id="' + el.dataset.id + '"]');
+    if(box) patchNote(el.dataset.id, box.value);
+    ui.open["n:" + el.dataset.id] = false;
+    saveUI();
+    render();
+  }
+  else if(act === "noteadd"){
+    var key = el.dataset.key;
+    var ta = document.querySelector('[data-act="draft"][data-key="' + key + '"]');
+    var text = ta ? ta.value : "";
+    var pic = pendingPhoto[key];
+    if(!text.trim() && !pic) return;
+
+    var finish = function(photoId){
+      addNote(el.dataset.client, el.dataset.visit, text, photoId || "");
+      delete ui.draft[key];
+      if(pic){ URL.revokeObjectURL(pic.previewUrl); delete pendingPhoto[key]; }
+      saveUI();
+      render();
+    };
+
+    if(pic){
+      el.disabled = true;
+      el.textContent = "Uploading…";
+      uploadPhoto(pic.file).then(finish).catch(function(){
+        el.disabled = false;
+        el.textContent = "Add note";
+        alert("Couldn\u2019t upload the photo \u2014 check your signal and try again. Your note is still here.");
+      });
+    }else{
+      finish(null);
+    }
+  }
+  else if(act === "photoclear"){
+    var pk = el.dataset.key;
+    if(pendingPhoto[pk]){ URL.revokeObjectURL(pendingPhoto[pk].previewUrl); delete pendingPhoto[pk]; }
+    render();
+  }
+});
+
+document.addEventListener("change", function(e){
+  if(e.target.closest("#new-client-form")) refreshNewClientPreview();
+  var el = e.target.closest("[data-act]");
+  if(!el) return;
+  var act = el.dataset.act;
+
+  if(act === "photopick"){
+    var file = el.files && el.files[0];
+    if(!file) return;
+    var pk = el.dataset.key;
+    var prior = pendingPhoto[pk];
+    compressImage(file).then(function(blob){
+      if(prior) URL.revokeObjectURL(prior.previewUrl);
+      pendingPhoto[pk] = {file: blob, previewUrl: URL.createObjectURL(blob)};
+      render();
+    }).catch(function(err){
+      alert(err.message || "Couldn\u2019t use that photo.");
+    });
+    return;
+  }
+  if(act === "vfield"){
+    var val = el.type === "number" ? Number(el.value) : el.value;
+    patchVisit(el.dataset.id, el.dataset.key, val);
+    if(el.dataset.key === "hours" || el.dataset.key === "invoiceNo" || el.dataset.key === "date") render();
+  }
+  else if(act === "vcheck"){ patchVisit(el.dataset.id, el.dataset.key, el.checked); render(); }
+  else if(act === "cfield"){
+    var cval = el.type === "number" ? Number(el.value) : el.value;
+    patchClient(el.dataset.id, el.dataset.key, cval);
+    if(el.dataset.key === "status" || el.dataset.key === "wantsInvoice") render();
+  }
+  else if(act === "anchor"){ patchClient(el.dataset.id, "anchor", el.value || null); render(); }
+  else if(act === "daytoggle"){ toggleClientDay(el.dataset.client, el.dataset.day); }
+  else if(act === "movepick"){ if(el.value) moveOccurrence(el.dataset.client, el.dataset.old, el.value); }
+});
+
+document.addEventListener("input", function(e){
+  if(e.target.closest("#new-client-form")) refreshNewClientPreview();
+  if(e.target.id === "client-search"){
+    var pos = e.target.selectionStart;
+    ui.clientSearch = e.target.value;
+    saveUI(); render();
+    var search = document.getElementById("client-search");
+    if(search){ search.focus(); search.setSelectionRange(pos,pos); }
+    return;
+  }
+  var el = e.target.closest('[data-act="draft"],[data-act="cfield"]');
+  if(!el) return;
+  if(el.dataset.act === "draft"){
+    if(el.tagName !== "TEXTAREA") return;
+    ui.draft[el.dataset.key] = el.value;
+    saveUI();
+  }else if(el.dataset.act === "cfield" && el.tagName !== "SELECT"){
+    patchClient(el.dataset.id, el.dataset.key,
+      el.type === "number" ? Number(el.value) : el.value);
+  }
+});
+
+function copyWeek(a, b, btn){
+  var list = doneVisits().filter(function(v){ return v.date >= a && v.date <= b; });
+  var lines = list.map(function(v){
+    var c = client(v.clientId) || {name:"(unknown)"};
+    return c.name + " — " + fmtDate(v.date) + " — " + hrs(v.hours) + " — " + money(v.amount);
+  });
+  lines.push("");
+  lines.push("Total: " + hrs(sum(list,function(v){return v.hours;})) + " — " + money(sum(list,function(v){return v.amount;})));
+  var text = "Week " + weekNoOf(parseYmd(a)) + " (" + fmtDateLong(a) + " to " + fmtDateLong(b) + ")\n\n" + lines.join("\n");
+
+  navigator.clipboard.writeText(text).then(function(){
+    btn.textContent = "Copied";
+    setTimeout(function(){ btn.textContent = "Copy summary for the crew report"; }, 1800);
+  }).catch(function(){
+    btn.textContent = "Couldn’t copy — select the table instead";
+  });
+}
+
+window.addEventListener("beforeunload", saveCache);
+
+load();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "job-book-public-trial",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "schema:local": "wrangler d1 execute job-book-your-business --local --file=./schema.sql",
+    "seed:local": "wrangler d1 execute job-book-your-business --local --file=./seed.sql",
+    "test": "node _test.cjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.147.0"
+  }
+}
